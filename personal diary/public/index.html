@@ -40,31 +40,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Log in</button> <a href = "/forget">Forgot Password </a>
               </form>
-              <script>
-                var email ="email-address";
-                var password = "password";
-
-                document.querySelector("#Login").addEventListener("click",function() {
-                validate(username,password);
-                });
-                function validate(username,password) { 
-                  var email=document.querySelector("#email").value;
-                var pass=document.querySelector("#pass").value;
-                if(email != email-address || pass != password){
-                  alert("Email-address and password do not match");
-                  return false;
-                }
-                else {
-                  alert("You Logged Successfully");
-                  return true;
-                }
-                }          
-
-              </script>
+             
         <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+        <script> login.js</script>
   </body>
 </html>

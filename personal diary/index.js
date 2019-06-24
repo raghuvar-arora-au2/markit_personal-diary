@@ -40,7 +40,7 @@ app.get('/',function(req,res){
 res.set({ 
     'Access-control-Allow-Origin': '*'
     }); 
-return res.redirect('public/index.html'); 
+return res.redirect('/index.html'); 
 })
 
 app.listen(3000);
