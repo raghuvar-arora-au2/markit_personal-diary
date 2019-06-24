@@ -29,6 +29,8 @@
             <h1>Sign Up</h1>
             <p>Please fill in this form to create an account.</p>
             <hr>
+            <label for="name"><b>NAME</b></label>
+            <input type="text" placeholder="Enter Name" name="name" required>
         
             <label for="email"><b>Email</b></label>
             <input type="text" placeholder="Enter Email" name="email" required>
@@ -36,8 +38,8 @@
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
         
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+            <label for="num"><b>Number</b></label>
+            <input type="text" placeholder="Phone Number" name="num" required>
         
             <label>
               <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
@@ -52,15 +54,17 @@
           </div>
         </form>
         <script>
-          $(document).ready(function() {
+         $(document).ready(function() {
         $("#reg-form-btn").click(function() {
+            var name = $("#name").val();
             var email = $("#email").val();
             var pass = $("#pass").val();
-            var repass = $("#repass").val();
+            var num = $("#num").val();
             $.post("/", {
+                Name: name,
                 Email: email,
                 Pass: pass,
-                Repass: repass
+                Num: num
             });
         });
     });
