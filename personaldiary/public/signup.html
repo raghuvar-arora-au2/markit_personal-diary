@@ -51,6 +51,20 @@
             </div>
           </div>
         </form>
+        <script>
+          $(document).ready(function() {
+        $("#reg-form-btn").click(function() {
+            var email = $("#email").val();
+            var pass = $("#pass").val();
+            var repass = $("#repass").val();
+            $.post("/", {
+                Email: email,
+                Pass: pass,
+                Repass: repass
+            });
+        });
+    });
+        </script>
         
         <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"

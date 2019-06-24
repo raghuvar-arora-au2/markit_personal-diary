@@ -1,46 +1,59 @@
-var express=require("express"); 
-var bodyParser=require("body-parser"); 
-  
-const mongoose = require('mongoose'); 
-mongoose.connect('mongodb://localhost:27017/gfg'); 
-var db=mongoose.connection; 
-db.on('error', console.log.bind(console, "connection error")); 
-db.once('open', function(callback){ 
-    console.log("connection succeeded"); 
-}) 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017');
+var express = require('express');
+var expressSession = require('express-session');
+var app = express();
+var db = mongoose.connection;
 
-require('./db');
-  
-var app=express();
-  
-  
-app.use(bodyParser.json()); 
-app.use(express.static('public')); 
-app.use(bodyParser.urlencoded({ 
-    extended: true
-})); 
-  
-app.get('public/signup', function(req,res){ 
-    var email =req.body.email; 
-    var pass = req.body.password;  
-  
-    var data = {  
-        "email":email, 
-        "password":pass
-    } 
-db.collection('details').insertOne(data,function(err, collection){ 
-        if (err) throw err; 
-        console.log("Record inserted Successfully"); 
-              
-    });  
-}) 
-  
-  
-app.get('/',function(req,res){ 
-res.set({ 
-    'Access-control-Allow-Origin': '*'
-    }); 
-return res.redirect('/index.html'); 
-})
+app.use(express.static('public'));
+
+app.post("/",function(req,res){
+    res.end("Registration Succesfully Completed!");
+
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function (callback) {
+        console.log("connected.")
+    });
+
+    var RegSchema = mongoose.Schema({
+        Email: String,
+        Pass: String,
+        repass: String,
+        
+        reg_time : {
+            type : Date, default: Date.now
+        }
+    }, { collection: 'AddressCol' });
+
+    var UserReg = mongoose.model('UserReg', RegSchema);
+
+    var UserAdd = new UserReg({
+        Email: req.body.email,
+        Pass: req.body.pass,
+        rePass: req.body.repass,
+    });
+
+    UserAdd.save(function (err, fluffy) {
+        if (err) return console.error(err);
+    });
+});
+app.post('/login', function (req, res, next) {
+    var email = req.body.email;
+    var pass = req.body.pass;
+ 
+    User.findOne({Email: email, Pass: pass}, function(err, user) {
+       if(err) return next(err);
+       if(!user) return res.send('Not logged in!');
+ 
+       req.session.email = email;
+      // return res.send('Logged In!);
+    });
+});
+ 
+ app.get('/logout', function (req, res) {
+    req.session.user = null;
+ });
+
 
 app.listen(3000);
