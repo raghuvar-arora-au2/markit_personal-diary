@@ -46,8 +46,8 @@ app.post('/login', function (req, res, next) {
        if(err) return next(err);
        if(!user) return res.send('Not logged in!');
  
-       req.session.email = email;
-      // return res.send('Logged In!);
+       req.session.user = email;
+       return res.send('Logged In!');
     });
 });
  
