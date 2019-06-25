@@ -1,0 +1,50 @@
+<html>
+    <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width">
+            <title>edit</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="index.html">Home </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#">Link <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="signup.html">Sign Up</a>
+                        </li>
+                       
+                  </nav>
+        <form id="form1" name="form1" method="post" action="" style="margin:0px;">
+        
+            <label for="category_title_box">New Category Title</label><br />
+                  <input name="category_title_box" type="text" id="category_title_box" size="20" />
+                  <br />
+              <br />
+                   Select a current Category:
+                   <select id="Category_Select" name="Category_Select" height="27px">
+                    <option value="" selected="selected">-----</option>
+                            foreach(glob(dirname(__FILE__) . '/files/*') as $filename){
+                                $filename = basename($filename);
+                                echo "<option value='" . $filename . "'>".$filename."</option>";
+                   </select>
+                   <br />
+        
+                  <input name="button" type="submit" class="button_190" id="button" value="Add category" style="margin-top:10px;" />
+        </form>
+        
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        
+    </body>
+</html>
