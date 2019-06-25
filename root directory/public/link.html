@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title> edit </title>
+    </head>
+    <body>
+        <form id="form1" name="form1" method="post" action="" style="margin:0px;">
+        
+            <label for="category_title_box">New Category Title</label><br />
+                  <input name="category_title_box" type="text" id="category_title_box" size="20" />
+                  <br />
+              <br />
+                   Select a current Category:
+                   <select id="Category_Select" name="Category_Select" height="27px">
+                    <option value="" selected="selected">-----</option>
+                            foreach(glob(dirname(__FILE__) . '/files/*') as $filename){
+                                $filename = basename($filename);
+                                echo "<option value='" . $filename . "'>".$filename."</option>";
+                   </select>
+                   <br />
+        
+                  <input name="button" type="submit" class="button_190" id="button" value="Add category" style="margin-top:10px;" />
+        </form>
+        
+        
+        
+    </body>
+</html>

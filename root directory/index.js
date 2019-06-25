@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/addressbookdb');
+mongoose.connect('mongodb://localhost/27017');
 var express = require('express');
 var expressSession = require('express-session');
 const bodyParser = require('body-parser');
@@ -47,7 +47,7 @@ app.get("/signup",function(req,res){
 });
 app.get('/signup', function (req, res, next) {
     var user = {
-       Name: req.body.name,
+       Name: req.session.name,
        Email: req.body.email,
        Pass: req.body.pass,
        Num: req.body.num
