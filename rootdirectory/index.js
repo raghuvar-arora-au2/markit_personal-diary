@@ -34,7 +34,7 @@ app.get("/signup",function(req,res){
     var UserReg = mongoose.model('UserReg', RegSchema);
 
     var UserAdd = new UserReg({
-        Name: req.body.name,
+        Name: req.session.name,
         Email: req.body.email,
         Pass: req.body.pass,
         Num: req.body.num,
@@ -45,7 +45,7 @@ app.get("/signup",function(req,res){
         if (err) return console.error(err);
     });
 });
-app.get('/signup', function (req, res, next) {
+app.get('/', function (req, res, next) {
     var user = {
        Name: req.session.name,
        Email: req.body.email,
