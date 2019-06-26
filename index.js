@@ -24,6 +24,7 @@ app.get("/signup",function(req,res){
     var RegSchema = mongoose.Schema({
         Name: String,
         Email: String,
+        Username: String,
         Pass: String,
         Num: Number,
         reg_time : {
@@ -35,9 +36,10 @@ app.get("/signup",function(req,res){
 
     var UserAdd = new UserReg({
         Name: req.session.name,
-        Email: req.body.email,
-        Pass: req.body.pass,
-        Num: req.body.num,
+        Email: req.session.email,
+        Username: req.session.username,
+        Pass: req.session.pass,
+        Num: req.session.num,
     });
 
 
@@ -49,6 +51,7 @@ app.get('/', function (req, res, next) {
     var user = {
        Name: req.session.name,
        Email: req.body.email,
+       Username: req.session.username,
        Pass: req.body.pass,
        Num: req.body.num
    };
@@ -64,13 +67,15 @@ app.get('/',function(req,res){
 })
 
 app.get('/login', function (req, res, next) {
-   var email = req.body.email;
-   var pass = req.body.pass;
+    var username = req.session.username;
+    var email = req.sesssion.email;
+    var pass = req.session.pass;
 
    User.findOne({Email: email, Pass: pass}, function(err, user) {
       if(err) return next(err);
       if(!user) return res.send('Not logged in!');
 
+      req.session.username = username;
       req.session.user = email;
       return res.send('Logged In!');
    });
