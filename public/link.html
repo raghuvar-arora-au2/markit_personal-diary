@@ -1,26 +1,43 @@
 <html>
     <head>
-        <title> edit </title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>create Folder</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <form id="form1" name="form1" method="post" action="" style="margin:0px;">
-        
-            <label for="category_title_box">New Category Title</label><br />
-                  <input name="category_title_box" type="text" id="category_title_box" size="20" />
-                  <br />
-              <br />
-                   Select a current Category:
-                   <select id="Category_Select" name="Category_Select" height="27px">
-                    <option value="" selected="selected">-----</option>
-                            foreach(glob(dirname(__FILE__) . '/files/*') as $filename){
-                                $filename = basename($filename);
-                                echo "<option value='" . $filename . "'>".$filename."</option>";
-                   </select>
-                   <br />
-        
-                  <input name="button" type="submit" class="button_190" id="button" value="Add category" style="margin-top:10px;" />
-        </form>
-        
+        <nav id="navbar-example3" class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link" href="#item-1">Category</a>
+              <nav class="nav nav-pills flex-column">
+                <a class="nav-link ml-3 my-1" href="#item-1-1">Item 1-1</a>
+                <a class="nav-link ml-3 my-1" href="#item-1-2">Item 1-2</a>
+              </nav>
+              <a class="nav-link" href="#item-2">Folder</a>
+              <nav class="nav nav-pills flex-column">
+                <a class="nav-link ml-3 my-1" href="#item-3-1">Item 3-1</a>
+              </nav>
+            </nav>
+          </nav>
+          
+          <div data-spy="scroll" data-target="#navbar-example3" data-offset="0">
+            <h4 id="item-1">Item 1</h4>
+            <p>...</p>
+            <h5 id="item-1-1">Item 1-1</h5>
+            <p>...</p>
+            <h5 id="item-1-2">Item 2-2</h5>
+            <p>...</p>
+            <h4 id="item-2">Item 2</h4>
+            <p>...</p>
+            <h4 id="item-3">Item 3</h4>
+            <p></p>
+            <h5 id="item-3-1">Item 3-1</h5>
+            <p>...</p>
+            <h5 id="item-3-2">Item 3-2</h5>
+            <p>...</p>
+          </div>
         
         
     </body>

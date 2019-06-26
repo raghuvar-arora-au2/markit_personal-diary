@@ -75,7 +75,7 @@ app.get('/login', function (req, res, next) {
       if(err) return next(err);
       if(!user) return res.send('Not logged in!');
 
-      req.session.username = username;
+      req.session.name = username;
       req.session.user = email;
       return res.send('Logged In!');
    });
@@ -83,6 +83,7 @@ app.get('/login', function (req, res, next) {
 
 app.get('/logout', function (req, res) {
    req.session.user = null;
+   req.session.destroy();
 });
 
 
