@@ -12,7 +12,7 @@ app.use(express.static('./public'));
 
 var db = mongoose.connection;
 
-app.get("/signup",function(req,res){
+app.get('/signup',function(req,res){
     res.end("Registration Succesfully Completed!");
 
     var db = mongoose.connection;
@@ -47,7 +47,7 @@ app.get("/signup",function(req,res){
         if (err) return console.error(err);
     });
 });
-app.get('/', function (req, res, next) {
+app.post('/signup', function (req, res, next) {
     var user = {
        Name: req.session.name,
        Email: req.body.email,
@@ -62,11 +62,11 @@ app.get('/', function (req, res, next) {
       return res.send('Logged In!');
    });
 });
-app.get('/',function(req,res){
+app.post('/',function(req,res){
     res.reindirect('index.html');
 })
 
-app.get('/login', function (req, res, next) {
+app.post('/login', function (req, res, next) {
     var username = req.session.username;
     var email = req.sesssion.email;
     var pass = req.session.pass;
