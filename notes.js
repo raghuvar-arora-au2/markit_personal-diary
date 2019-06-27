@@ -9,11 +9,14 @@ router.get('/', function(req, res) {
     var user = "abc2" // req.session.name
     // var folders = []  
     var notes = [] 
-    req.app.locals.db.collection('notes').find({"user_id":user}).toArray().then(function(docs){
-        docs.forEach(function(e,i){
-            notes.push(e.note)
-            console.log(notes)
-        }) 
+    req.app.locals.db.collection('notes').find({"user_id":user}).toArray(function(err, docs){
+        if(docs){
+            docs.forEach(function(e,i){
+                notes.push(e.note)
+                console.log(notes)
+            }) 
+        }
+        
         // why does res exist here now?
         console.log("render?")
         res.render('markdown', {notes:notes})     
