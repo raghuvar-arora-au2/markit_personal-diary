@@ -1,0 +1,31 @@
+<section class="row">
+
+    <div class="col-md-2 fs">
+
+      <div class="row fs-toolbar">
+          <div class="btn-group" role="group" aria-label="First group">
+            <button type="button" class="btn col create--note">&#128441;</button>
+            <button type="button" class="btn col edit--name">&#x270E;</button>
+            <button type="button" class="btn col delete">&#x1F5D1;</button>
+            <div class="col"></div>
+            <button type="button" class="float-right btn col">&#9421;</button>
+          </div>
+      </div>
+
+      <div class="row">
+          <ul class="notes">
+              {{#each notes}} 
+              <li class="ml-3 note"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#128441;</label><input value={{this}} type="text" readonly></li>
+              {{/each}}
+          </ul>
+      </div>
+
+    </div>
+    <div class="col-md-5">
+      <button type="button" class="btn save--note d-none">&#x1F4BE;</button>
+      <button type="button" class="btn edit--note d-none">&#x270E;</button>
+      <textarea id="pad" value="" readonly></textarea>    
+    </div>
+    <div class="col-md-5" id="markdown" value=""></div>
+
+</section>
