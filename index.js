@@ -7,10 +7,10 @@ var mongoClient = require('mongodb').MongoClient
 var app = express();
 
 if(process.env.MY_DB){
-    url = process.env.MY_DB
+    var url = process.env.MY_DB
 }
 else
-    url = "mongodb://127.0.0.1:27017/"
+    var url = "mongodb://127.0.0.1:27017/"
 
 mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
     if(err) throw err    
