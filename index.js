@@ -24,5 +24,5 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/notes', notes)
 
-app.listen(8000);
+app.listen(process.env.PORT || 3000);
 
