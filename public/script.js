@@ -98,6 +98,9 @@ $('.delete').on('click', function(){
         data: JSON.stringify({note:note}),
         success:function(){
             console.log("inside success of /delete-a-note")
+            // on delete clear the markdown/pad/html
+            $('textarea').val('')
+            $('#markdown').html('')
         }
 
     })
