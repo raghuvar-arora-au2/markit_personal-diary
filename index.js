@@ -12,7 +12,7 @@ if(process.env.MY_DB){
 else
     url = "mongodb://127.0.0.1:27017/"
 
-mongoClient.connect(url, {uri_decode_auth: true}, function(err, client){
+mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
     if(err) throw err    
     app.locals.db = client.db('markit')   
     console.log("database connected!")   
