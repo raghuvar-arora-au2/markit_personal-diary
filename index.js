@@ -6,8 +6,13 @@ var mongoClient = require('mongodb').MongoClient
 
 var app = express();
 
+if(process.env.MY_DB){
+    url = process.env.MY_DB
+}
+else
+    url = "mongodb://127.0.0.1:27017/"
 
-mongoClient.connect("mongodb://127.0.0.1:27017/", function(err, client){
+mongoClient.connect(url, function(err, client){
     if(err) throw err    
     app.locals.db = client.db('markit')   
     console.log("database connected!")   
