@@ -17,6 +17,9 @@
     "inherits": "^2.0.4",
     "mkdirp": "^0.5.1",
     "mongodb": "^3.2.7",
-    "showdown": "^1.9.0"
+    "showdown": "^1.9.0",
+    "express-session": "^1.16.2",
+    "mongoose": "^5.6.1"
   }
+
 }
