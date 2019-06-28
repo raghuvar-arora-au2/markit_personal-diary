@@ -24,5 +24,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/notes', notes)
 
+// heroku app will run on '/'?
+app.get('/', function(req, res){
+    res.redirect('/notes')
+})
+
 app.listen(process.env.PORT || 3000);
 
