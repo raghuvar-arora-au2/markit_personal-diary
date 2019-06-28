@@ -1,0 +1,52 @@
+html, body, section, textarea{
+    height:100%; 
+    width:100%   
+}
+
+textarea{
+    padding:0
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+    width:100%
+}
+
+.fs-toolbar{
+    background-color: #f4f4f4
+}
+
+label{
+    padding:0;  
+    font-size:20px
+}
+
+.btn{ 
+    font-size:20px;
+    background-color:transparent;
+   
+}
+input{
+    height:20px;
+    width:110px;
+    border-radius:0;
+    margin-left: 10px;
+    border:0;  
+    background-color:transparent
+}
+
+
+.btn .btn:hover .btn:active .btn:focus{
+    border:0;
+    background-color: transparent;
+    box-shadow: none;
+    transition: none;
+    outline:none !important
+   
+}
+
+.save--note, .edit--note{
+    position:absolute;
+    right:1em
+}
