@@ -34,6 +34,10 @@ changeBackgroundColor = function(){
     
 }
 
+$('.create--folder').on('click',function(){
+    var newli = $('<li class="folder"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#x1F4C1;</label><input type="text" readonly></li>')
+    $('.notes').append(newli)
+})
 
 $('.create--note').on('click', function(){
     var value = "untitled_" + int
