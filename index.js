@@ -1,7 +1,7 @@
-// if(process.env.MY_DB)
-//     var url = process.env.MY_DB
-// else
-var url = "mongodb://127.0.0.1:27017/"
+if(process.env.MY_DB)
+    var url = process.env.MY_DB
+else
+    var url = "mongodb://127.0.0.1:27017/"
 
 // var mongoose = require('mongoose');
 // mongoose.connect(url);
@@ -113,5 +113,5 @@ app.get('/', function(req, res){
     res.redirect('/notes')
 })
 
-// app.listen(process.env.PORT || 3000);
-app.listen(3000)
+app.listen(process.env.PORT || 3000);
+// app.listen(3000)
