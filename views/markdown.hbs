@@ -1,10 +1,11 @@
-<section class="row">
+<div class="row main-row">
 
     <div class="col-md-2 fs">
 
-      <div class="row fs-toolbar">
+      <div class="row fs-toolbar mb-3">
           {{!-- <div class="btn-group" role="group" aria-label="First group"> --}}
           {{!-- <div> --}}
+            {{!-- https://apps.timwhitlock.info/emoji/tables/unicode --}}
             <button type="button" class="btn col-md-3 create--folder">&#x1F4C1;</button>
             <button type="button" class="btn col-md-3 create--note">&#128441;</button>
             <button type="button" class="btn col-md-3 edit--name">&#x270E;</button>
@@ -15,19 +16,39 @@
       </div>
      
       <div class="row">
-          <ul class="notes">
-              {{#each notes}} 
+          <ul class="folders">
+            {{#each fs}}
+            <li class="folder"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#x1F4C1;</label><input value={{this._id}} type="text" readonly></li>
+            <ul class="notes d-none">
+              {{!-- each of fs.value => egdg then, dgfg .. so, {{fs.value}} shud work .. --}}
+              {{#each this.notes}} 
               <li class="ml-3 note"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#128441;</label><input value={{this}} type="text" readonly></li>
               {{/each}}
+            </ul>
+            {{/each}}
           </ul>
       </div>
 
     </div>
-    <div class="col-md-5">
-      <button type="button" class="btn save--note d-none">&#x1F4BE;</button>
-      <button type="button" class="btn edit--note d-none">&#x270E;</button>
-      <textarea id="pad" value="" readonly></textarea>    
-    </div>
-    <div class="col-md-5" id="markdown" value=""></div>
 
-</section>
+    <div class="col-md-5 mkdn">
+
+      <div class="row fs-toolbar mb-3 pad--toolbar d-none">
+        <input type="button" class="btn col-md-2 add--img" value="&#x1F301;">
+        <input type="button" class="btn col-md-2 add--audio" value='&#128266;'>
+        <input type="button" class="btn col-md-2 add--video" value='&#128249;'>
+        <input type="button" class="btn col-md-2 export-to-pdf" value='&#x1F4E9;'>
+        
+        <input type="button" class="btn col-md-2 save--note" disabled value='&#x1F4BE;'>
+        <input type="button" class="btn col-md-2 edit--note" value='&#x1F4DD;'>
+      </div>
+
+      <div class="row notepad fill-height">
+        <textarea id="pad" value='' readonly></textarea>  
+      </div>
+
+    </div>
+
+    <div class="col-md-5 html" id="markdown" value=""></div>
+
+</div>

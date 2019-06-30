@@ -1,6 +1,5 @@
-if(process.env.MY_DB){
+if(process.env.MY_DB)
     var url = process.env.MY_DB
-}
 else
     var url = "mongodb://127.0.0.1:27017/"
 
@@ -115,3 +114,4 @@ app.get('/', function(req, res){
 })
 
 app.listen(process.env.PORT || 3000);
+// app.listen(3000)
