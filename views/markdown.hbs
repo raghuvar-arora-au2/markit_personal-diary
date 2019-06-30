@@ -5,11 +5,11 @@
       <div class="row fs-toolbar mb-3">
           {{!-- <div class="btn-group" role="group" aria-label="First group"> --}}
           {{!-- <div> --}}
-            {{!-- https://apps.timwhitlock.info/emoji/tables/unicode --}}
-            <button type="button" class="btn col-md-3 create--folder">&#x1F4C1;</button>
-            <button type="button" class="btn col-md-3 create--note">&#128441;</button>
-            <button type="button" class="btn col-md-3 edit--name">&#x270E;</button>
-            <button type="button" class="btn col-md-3 delete">&#x1F5D1;</button>
+            {{!-- https://apps.timwhitlock.info/emoji/tables/unicode -- &#x1F4C1; &#128441; &#x270E; &#x1F5D1; --}}
+            <button type="button" class="btn col-md-3 create--folder fa fa-folder-open-o"></button>
+            <button type="button" class="btn col-md-3 create--note fa fa-file"></button>
+            <button type="button" class="btn col-md-3 edit--name fa fa-pencil"></button>
+            <button type="button" class="btn col-md-3 delete fa fa-trash"></button>
             {{!-- <div class="col"></div> --}}
             {{!-- <button type="button" class="float-right btn col">&#9421;</button> --}}
           {{!-- </div> --}}
@@ -18,11 +18,11 @@
       <div class="row">
           <ul class="folders">
             {{#each fs}}
-            <li class="folder"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#x1F4C1;</label><input value={{this._id}} type="text" readonly></li>
+            <li class="folder mb-3"><div class="mx-3 d-inline-block">&#x25b8;</div><label class="fa fa-folder-open-o"></label><input class="files" value={{this._id}} type="text" readonly></li>
             <ul class="notes d-none">
               {{!-- each of fs.value => egdg then, dgfg .. so, {{fs.value}} shud work .. --}}
               {{#each this.notes}} 
-              <li class="ml-3 note"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#128441;</label><input value={{this}} type="text" readonly></li>
+              <li class="ml-3 note mb-3"><div class="mx-3 d-inline-block">&#x25b8;</div><label class="fa fa-file"></label><input class="files" value={{this}} type="text" readonly></li>
               {{/each}}
             </ul>
             {{/each}}
@@ -33,14 +33,15 @@
 
     <div class="col-md-5 mkdn">
 
+{{!-- &#x1F301; &#128266; &#128249; &#x1F4E9; &#x1F4BE; --}}
       <div class="row fs-toolbar mb-3 pad--toolbar d-none">
-        <input type="button" class="btn col-md-2 add--img" value="&#x1F301;">
-        <input type="button" class="btn col-md-2 add--audio" value='&#128266;'>
-        <input type="button" class="btn col-md-2 add--video" value='&#128249;'>
-        <input type="button" class="btn col-md-2 export-to-pdf" value='&#x1F4E9;'>
+        <input type="button" class="btn col-md-2 add--img fa fa-file-image-o" value='&#xf1c5'>
+        <input type="button" class="btn col-md-2 add--audio fa fa-volume-up" value="&#xf028">
+        <input type="button" class="btn col-md-2 add--video fa fa-film" value='&#xf008'>
+        <input type="button" class="btn col-md-2 export-to-pdf fa fa-cloud-download" value='&#xf0ed'>
         
-        <input type="button" class="btn col-md-2 save--note" disabled value='&#x1F4BE;'>
-        <input type="button" class="btn col-md-2 edit--note" value='&#x1F4DD;'>
+        <button type="button" class="btn col-md-2 save--note fa fa-floppy-o" disabled value='&#xf0c7'></button>
+        <button type="button" class="btn col-md-2 edit--note fa fa-edit"></button>
       </div>
 
       <div class="row notepad fill-height">

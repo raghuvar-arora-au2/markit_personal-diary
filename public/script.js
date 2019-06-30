@@ -39,14 +39,14 @@ changeBackgroundColor = function(){
 $('.create--folder').on('click',function(){
     var value = "untitled_" + int
     int++
-    var newli = $('<li class="folder"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#x1F4C1;</label><input value=' + value + '  type="text" readonly></li><ul class="notes d-none"></ul>')
+    var newli = $('<li class="folder mb-3"><div class="mx-3 d-inline-block">&#x25b8;</div><label class="fa fa-folder-open-o"></label><input  class="files" value=' + value + '  type="text" readonly></li><ul class="notes d-none"></ul>')
     $('.folders').prepend(newli)
 })
 
 $('.create--note').on('click', function(){
     var value = "untitled_" + int
     int++
-    var newli = '<li class="ml-3 note"><div class="mx-3 d-inline-block">&#x25b8;</div><label>&#128441;</label><input value=' + value + ' type="text" readonly></li>' 
+    var newli = '<li class="ml-3 note mb-3"><div class="mx-3 d-inline-block">&#x25b8;</div><label class="fa fa-file"></label><input class="files" value=' + value + ' type="text" readonly></li>' 
     var ul = $(this).parent().parent().parent().parent()
     .find('li[style*="background-color: rgb(212, 236, 244)"]')
     // checking - create note only if folder=blue, no nested note inside a note (i.e. if note=blue)
@@ -163,7 +163,7 @@ $('.edit--name').on('click', function(){
 })
 
 
-$(document).on('keypress', 'input', function(e){
+$(document).on('keypress', '.files', function(e){
     if(e.which==13){
         $(this).attr('readonly', 'true')
         $(this).css('background-color', 'transparent')
