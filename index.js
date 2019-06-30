@@ -4,10 +4,9 @@ if(process.env.MY_DB){
 else
     var url = "mongodb://127.0.0.1:27017/"
 
-// var mongoose = require('mongoose');
-// mongoose.connect(url);
+
 var express = require('express');
-var expressSession = require('express-session');
+var session = require('express-session');
 const bodyParser = require('body-parser');
 var notes = require('./notes.js') 
 var hbs = require('express-handlebars');
@@ -25,80 +24,58 @@ app.use(bodyParser.json());
 
 app.use(express.static('./public'));
 
-// var db = mongoose.connection;
+app.use(session({
+    secret: "this is some secret"
+}));
 
-// app.get('/signup',function(req,res){
-//     res.end("Registration Succesfully Completed!");
+app.post('/sign_up' ,function(req,res){
+    var name = req.body.name;
+    var username = req.body.username;
+	var email= req.body.email;
+    var pass = req.body.password;
+    var cmpass = req.body.cpassword;
+	var password = getHash( pass , phone ); 				
 
-//     var db = mongoose.connection;
-//     db.on('error', console.error.bind(console, 'connection error:'));
-//     db.once('open', function (callback) {
-//         console.log("connected.")
-//     });
-
-//     var RegSchema = mongoose.Schema({
-//         Name: String,
-//         Email: String,
-//         Username: String,
-//         Pass: String,
-//         Num: Number,
-//         reg_time : {
-//             type : Date, default: Date.now
-//         }
-//     }, { collection: 'AddressCol' });
-
-//     var UserReg = mongoose.model('UserReg', RegSchema);
-
-//     var UserAdd = new UserReg({
-//         Name: req.session.name,
-//         Email: req.session.email,
-//         Username: req.session.username,
-//         Pass: req.session.pass,
-//         Num: req.session.num,
-//     });
-
-
-//     UserAdd.save(function (err, fluffy) {
-//         if (err) return console.error(err);
-//     });
-// });
-// app.post('/signup', function (req, res, next) {
-//     var user = {
-//        Name: req.session.name,
-//        Email: req.body.email,
-//        Username: req.session.username,
-//        Pass: req.body.pass,
-//        Num: req.body.num
-//    };
-//    var UserReg = mongoose.model('UserReg', RegSchema);
-//    UserReg.create(user, function(err, newUser) {
-//       if(err) return next(err);
-//       req.session.user = email;
-//       return res.send('Logged In!');
-//    });
-// });
-app.post('/',function(req,res){
-    res.reindirect('index.html');
+	var data = {
+        "name":name,
+        "usename":username,
+		"email":email,
+        "password": password,
+        "cpassword":cpassword,
+	}
+		console.log("connected to database successfully");
+		//CREATING A COLLECTION IN MONGODB USING NODE.JS
+		app.locals.db.collection("users").insertOne(data, (err , collection) => {
+			if(err) throw err;
+			console.log("Record inserted successfully");
+			console.log(collection);
+		});
+	
+	console.log("DATA is " + JSON.stringify(data) );
+	res.set({
+		'Access-Control-Allow-Origin' : '*'
+	});
+    return res.redirect('/index.html');  
 })
 
-// app.post('/login', function (req, res, next) {
-//     var username = req.session.username;
-//     var email = req.sesssion.email;
-//     var pass = req.session.pass;
+app.post('/',function(req,res){
+    if(req.session.loggedIn == "true") {
+        res.redirect('/notes');
+    }
+    else
+    {
+        res.redirect('/index.html');
+    }
+});
 
-//    User.findOne({Email: email, Pass: pass}, function(err, user) {
-//       if(err) return next(err);
-//       if(!user) return res.send('Not logged in!');
-
-//       req.session.name = username;
-//       req.session.user = email;
-//       return res.send('Logged In!');
-//    });
-// });
-
-app.get('/logout', function (req, res) {
-   req.session.user = null;
-   req.session.destroy();
+app.post('/login',function(req,res){
+    var username = req.body.username;
+    var password = req.body.password;
+    if(username =='username' && password =='password') {
+        req.session.loggedIn = "true";
+        res.json({success_message: "Logged in Successfully!"});
+        res.redirect("/index.html");
+    }
 });
 
 app.engine('hbs', hbs({extname:'hbs'}))
@@ -110,8 +87,8 @@ app.set('views', __dirname + '/views')
 app.use('/notes', notes)
 
 // heroku app will run on '/'?
-app.get('/', function(req, res){
-    res.redirect('/notes')
-})
+// app.get('/', function(req, res){
+//     res.redirect('/notes')
+// })
 
 app.listen(process.env.PORT || 3000);
