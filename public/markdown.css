@@ -54,7 +54,8 @@ a, a:hover{
 
 .add--img, .add--video, .add--audio, .export-to-pdf, .save--note, .edit--note{
     /* font-size:40px; */
-    height:40px
+    height:40px;
+    line-height:40px
 }
 
 .pad--toolbar{
@@ -65,6 +66,11 @@ a, a:hover{
 /* .fs, .mkdn, .html{
     padding-right:0
 } */
+
+/* not very clear */
+.upload>input {
+    display: none;
+  }
 
 label{
     padding:0;  
