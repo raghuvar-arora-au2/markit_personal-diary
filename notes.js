@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
         }
     }]).toArray(function(err, data){
         console.log(data)
-        res.render('markdown', {fs:data}) 
+        res.render('markdown', {fs:data, username:user}) 
     }
     )
 })

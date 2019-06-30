@@ -39,6 +39,14 @@ ul {
     /* z-index: 5 */
 }
 
+a, a:hover{
+    text-decoration: none;
+    color:white
+}
+/* a:hover{
+    color:white
+} */
+
 .main-row{
     margin-left:-15px;
     margin-right:15px
