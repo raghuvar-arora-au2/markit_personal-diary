@@ -243,4 +243,46 @@ $('.edit--note').on('click', function(){
     $('.edit--note').attr("disabled", "disabled") 
 })
 
+function offset()
+    {
+    var ctl = document.getElementById('pad');
+    var startPos = ctl.selectionStart;
+    var endPos = ctl.selectionEnd;
+    return startPos
+    //alert(startPos + ", " + endPos);
+  
+    }
 
+
+function _(el) {
+    return document.getElementById(el);
+    }
+      
+function uploadFile() {
+    let index=offset()||0;
+    var file = _("file1").files[0];
+    // alert(file.name+" | "+file.size+" | "+file.type);
+    var formdata = new FormData();
+    formdata.append("file", file);
+    var ajax = new XMLHttpRequest();
+    ajax.onreadystatechange = function()
+        {
+        if (ajax.readyState == 4 && ajax.status == 200)
+            {
+            console.log(ajax.responseText)
+            let link=(JSON.parse(ajax.responseText).data.image); // Another callback here
+            setText(index, link)
+            }
+        }; 
+        
+    ajax.upload.addEventListener("progress", progressHandler, false);
+    ajax.addEventListener("load", completeHandler, false);
+    ajax.addEventListener("error", errorHandler, false);
+    ajax.addEventListener("abort", abortHandler, false);
+    ajax.open("POST", "upload"); // 
+          //use file_upload_parser.php from above url
+    ajax.send(formdata);
+        
+        
+    }
+      
