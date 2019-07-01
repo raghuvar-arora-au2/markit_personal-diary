@@ -10,6 +10,13 @@ router.get('/', function(req, res) {
     // var folders = []  
     var notes = [] 
 
+    // if foldername is null, replace it with "unknown"
+
+    req.app.locals.db.collection('notes').updateOne({user_id:user, folder:'null'}, {$set:{folder:'unknown'}}, function(err, data){
+        if(err) throw err
+        console.log("null folders -> unknown updated in db!")
+    })
+
     // user : abc2 ? 
     // what if no result found? not rendering anything?
     req.app.locals.db.collection('notes').aggregate([{
