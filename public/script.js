@@ -273,16 +273,23 @@ function uploadFile() {
 
     //add a progres bar with id x
     //take 
+    let stack=document.getElementById("stack");
 
     let index=offset()||0;
-    var file = _("file-input").files[0];
+    var file = document.getElementById("picture-input");
     var fileprogress=`<div class="progress" style="height:15px; width:30%;"  >
 			
         <div id="${file.value}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
   
         </div>
         <span >${file.value}</span>
-    </div>`
+    </div><br>`
+
+    stack.innerHTML=fileprogress+stack.innerHTML;
+
+    let progressbar=stack.getElementsByTagName("div")[0];
+
+
 
     //add the above to DOM
 
@@ -300,26 +307,33 @@ function uploadFile() {
             }
         }; 
         let i=0;
-    ajax.upload.addEventListener("progress", progressHandler.bind(this, fileprogress), false);
-    ajax.addEventListener("load", completeHandler.bind(this, fileprogress), false);
-    //ajax.addEventListener("error", errorHandler, false);
+    ajax.upload.addEventListener("progress", progressHandler.bind(this, progressbar), false);
+    ajax.addEventListener("load", completeHandler.bind(this, progressbar), false);
+    ajax.addEventListener("error", errorHandler.bind(this, progressbar), false);
     //ajax.addEventListener("abort", abortHandler, false);
-    ajax.open("POST", "upload"); // 
+    ajax.open("POST", "http://localhost:8000/upload"); // 
           //use file_upload_parser.php from above url
     ajax.send(formdata);
         
         
     }
-      
-function progressHandler(event, fileprogress) {
+  
+
+function errorHandler(fileprogress, event){
+    fileprogress.childNodes[1].style.backgroundColor="red";
+    //wait for 5 seconds and remove child
+    
+}
+function progressHandler(fileprogress, event) {
 
     //_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
     var percent = (event.loaded / event.total) * 100;
-    fileprogress.childNodes[0].style.width=`${percent-20}%`
+    console.log(fileprogress.innerHTML)
+    fileprogress.childNodes[1].style.width=`${percent-20}%`
     //_("progressBar").value = Math.round(percent);
 }
 
-function completeHandler(event, fileprogress) {
+function completeHandler(fileprogress, event) {
     //_("status").innerHTML = event.target.responseText;
     fileprogress.parentNode.removeChild(fileprogress);
     //_("progressBar").value = 0; //wil clear progress bar after successful upload
