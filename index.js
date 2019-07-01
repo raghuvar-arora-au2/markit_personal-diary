@@ -129,6 +129,8 @@ app.get('/', function(req, res){
     res.redirect('/notes')
 })
 
+<
+=
 app.delete("/delete", multerUploads,(req,res)=>{
     let id=req.body.id;
     let path=req.body.path;
@@ -161,6 +163,7 @@ app.post( "/upload", multerUploads, ( req, res ) => {
         }
     }
 } );
+
 
 
 
