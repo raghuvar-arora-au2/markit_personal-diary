@@ -226,7 +226,7 @@ $('.save--note').on('click', function(){
             // $('.edit--note').removeClass('d-none') 
             // $('.save--note').addClass('d-none')
             $('.edit--note').attr("disabled", false)
-            $('.save--note').attr("disabled", "disabled") 
+            $('.save--note, .add--img, .add--video, .add--audio').attr("disabled", "disabled") 
             console.log("saved note")
         }
 
@@ -239,7 +239,7 @@ $('.edit--note').on('click', function(){
     // .css('background-color', 'white')  
     // $('.save--note').removeClass('d-none')   
     // $('.edit--note').addClass('d-none')
-    $('.save--note').attr("disabled", false)
+    $('.save--note, .add--img, .add--video, .add--audio').attr("disabled", false)
     $('.edit--note').attr("disabled", "disabled") 
 })
 
