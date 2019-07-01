@@ -253,14 +253,39 @@ function offset()
   
     }
 
+    function setText(index, link){
+        //debugger;
+        let ta=document.getElementById("pad");
+        let taleft=(ta.value).substring(0, index);
+        let taright=(ta.value).substring(index+1,(ta.value).length );
+        ta.value=taleft+`<video width="220" height="220" controls>
+       <source src="${link}" type="video/mp4">
+       <source src="movie.ogg" type="video/ogg">
+      Your browser does not support the video tag.
+      </video>`+taright;
+      }
 
 function _(el) {
     return document.getElementById(el);
     }
       
 function uploadFile() {
+
+    //add a progres bar with id x
+    //take 
+
     let index=offset()||0;
-    var file = _("file1").files[0];
+    var file = _("file-input").files[0];
+    var fileprogress=`<div class="progress" style="height:15px; width:30%;"  >
+			
+        <div id="${file.value}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
+  
+        </div>
+        <span >${file.value}</span>
+    </div>`
+
+    //add the above to DOM
+
     // alert(file.name+" | "+file.size+" | "+file.type);
     var formdata = new FormData();
     formdata.append("file", file);
@@ -274,11 +299,11 @@ function uploadFile() {
             setText(index, link)
             }
         }; 
-        
-    ajax.upload.addEventListener("progress", progressHandler, false);
-    ajax.addEventListener("load", completeHandler, false);
-    ajax.addEventListener("error", errorHandler, false);
-    ajax.addEventListener("abort", abortHandler, false);
+        let i=0;
+    ajax.upload.addEventListener("progress", progressHandler.bind(this, fileprogress), false);
+    ajax.addEventListener("load", completeHandler.bind(this, fileprogress), false);
+    //ajax.addEventListener("error", errorHandler, false);
+    //ajax.addEventListener("abort", abortHandler, false);
     ajax.open("POST", "upload"); // 
           //use file_upload_parser.php from above url
     ajax.send(formdata);
@@ -286,3 +311,16 @@ function uploadFile() {
         
     }
       
+function progressHandler(event, fileprogress) {
+
+    //_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+    var percent = (event.loaded / event.total) * 100;
+    fileprogress.childNodes[0].style.width=`${percent-20}%`
+    //_("progressBar").value = Math.round(percent);
+}
+
+function completeHandler(event, fileprogress) {
+    //_("status").innerHTML = event.target.responseText;
+    fileprogress.parentNode.removeChild(fileprogress);
+    //_("progressBar").value = 0; //wil clear progress bar after successful upload
+}
