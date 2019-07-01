@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 
     // if foldername is null, replace it with "unknown"
 
-    req.app.locals.db.collection('notes').updateOne({user_id:user, folder:'null'}, {$set:{folder:'unknown'}}, function(err, data){
+    req.app.locals.db.collection('notes').updateOne({user_id:user, folder:null}, {$set:{folder:'unknown'}}, function(err, data){
         if(err) throw err
         console.log("null folders -> unknown updated in db!")
     })
