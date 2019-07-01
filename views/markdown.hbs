@@ -6,10 +6,10 @@
           {{!-- <div class="btn-group" role="group" aria-label="First group"> --}}
           {{!-- <div> --}}
             {{!-- https://apps.timwhitlock.info/emoji/tables/unicode -- &#x1F4C1; &#128441; &#x270E; &#x1F5D1; --}}
-            <button type="button" class="btn col-md-3 create--folder fa fa-folder-open-o"></button>
-            <button type="button" class="btn col-md-3 create--note fa fa-file"></button>
-            <button type="button" class="btn col-md-3 edit--name fa fa-pencil"></button>
-            <button type="button" class="btn col-md-3 delete fa fa-trash"></button>
+            <button type="button" data-toggle="tooltip" data-placement="top" title="create new folder" class="btn col-md-3 create--folder fa fa-folder-open-o"></button>
+            <button type="button" data-toggle="tooltip" data-placement="top" title="create new note" class="btn col-md-3 create--note fa fa-file"></button>
+            <button type="button" data-toggle="tooltip" data-placement="top" title="edit folder/note name" class="btn col-md-3 edit--name fa fa-pencil"></button>
+            <button type="button" data-toggle="tooltip" data-placement="top" title="delete a folder/note" class="btn col-md-3 delete fa fa-trash"></button>
             {{!-- <div class="col"></div> --}}
             {{!-- <button type="button" class="float-right btn col">&#9421;</button> --}}
           {{!-- </div> --}}
@@ -38,18 +38,18 @@
 {{!-- &#x1F301; &#128266; &#128249; &#x1F4E9; &#x1F4BE; --}}
       <div class="row fs-toolbar mb-3 pad--toolbar d-none">
 
-        <div class="upload col-md-2"><label for="picture-input"><div class="add--img fa fa-picture-o"></div></label><input id="picture-input" type="file" /></div>
-        <div class="upload col-md-2"><label for="audio-input"><div class="add--audio fa fa-volume-up"></div></label><input id="audio-input" type="file" /></div>
-        <div class="upload col-md-2"><label for="video-input"><div class="add--video fa fa-film"></div></label><input id="video-input" type="file" /></div>
-        <div class="upload col-md-2"><label for="file-input"><div class="export-to-pdf fa fa-cloud-download"></div></label><input id="file-input" type="button" /></div>
+        <div class="upload col-md-2"><label for="picture-input"><div data-toggle="tooltip" data-placement="top" title="add image to your note" class="add--img fa fa-picture-o"></div></label><input id="picture-input" type="file" /></div>
+        <div class="upload col-md-2"><label for="audio-input"><div data-toggle="tooltip" data-placement="top" title="add an audio to your note" class="add--audio fa fa-volume-up"></div></label><input id="audio-input" type="file" /></div>
+        <div class="upload col-md-2"><label for="video-input"><div data-toggle="tooltip" data-placement="top" title="add a video to your note" class="add--video fa fa-film"></div></label><input id="video-input" type="file" /></div>
+        <div class="upload col-md-2"><label for="file-input"><div data-toggle="tooltip" data-placement="top" title="export your note to pdf" class="export-to-pdf fa fa-cloud-download"></div></label><input id="file-input" type="button" /></div>
 
 {{!--         
         <input type="button" class="btn col-md-2 add--audio fa fa-volume-up" value="&#xf028">
         <input type="button" class="btn col-md-2 add--video fa fa-film" value='&#xf008'>
         <input type="button" class="btn col-md-2 export-to-pdf fa fa-cloud-download" value='&#xf0ed'>
          --}}
-        <button type="button" class="btn col-md-2 save--note fa fa-floppy-o" disabled value='&#xf0c7'></button>
-        <button type="button" class="btn col-md-2 edit--note fa fa-edit"></button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="save your note" class="btn col-md-2 save--note fa fa-floppy-o" disabled value='&#xf0c7'></button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="edit your note" class="btn col-md-2 edit--note fa fa-edit"></button>
       </div>
 
       <div class="row notepad fill-height">
