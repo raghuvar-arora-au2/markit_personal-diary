@@ -3,8 +3,8 @@ if(process.env.MY_DB)
 else
     var url = "mongodb://127.0.0.1:27017/"
 
-// var mongoose = require('mongoose');
-// mongoose.connect(url);
+// var url = "mongodb://127.0.0.1:27017/"
+
 var express = require('express');
 var expressSession = require('express-session');
 const bodyParser = require('body-parser');

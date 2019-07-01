@@ -18,7 +18,13 @@
       <div class="row">
           <ul class="folders">
             {{#each fs}}
+            {{!-- if _id i.e. folder name = null --}}
+            {{#if this._id}} 
             <li class="folder mb-3"><div class="mx-3 d-inline-block">&#x25b8;</div><label class="fa fa-folder-open-o"></label><input class="files" value={{this._id}} type="text" readonly></li>
+            {{else}}
+            <li class="folder mb-3"><div class="mx-3 d-inline-block">&#x25b8;</div><label class="fa fa-folder-open-o"></label><input class="files" value='unknown' type="text" readonly></li>
+            {{/if}}
+
             <ul class="notes d-none">
               {{!-- each of fs.value => egdg then, dgfg .. so, {{fs.value}} shud work .. --}}
               {{#each this.notes}} 
