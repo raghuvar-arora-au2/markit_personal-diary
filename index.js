@@ -55,7 +55,7 @@ app.post('/sign_up' ,function(req,res){
 	res.set({
 		'Access-Control-Allow-Origin' : '*'
 	});
-    return res.redirect('/index.html');  
+    return res.redirect('./index.html');  
 })
 
 app.post('/',function(req,res){
@@ -64,7 +64,7 @@ app.post('/',function(req,res){
     }
     else
     {
-        res.redirect('/index.html');
+        res.redirect('./index.html');
     }
 });
 
@@ -89,6 +89,6 @@ app.use('/notes', notes)
 // heroku app will run on '/'?
 // app.get('/', function(req, res){
 //     res.redirect('/notes')
-// })
+// });
 
 app.listen(process.env.PORT || 3000);
