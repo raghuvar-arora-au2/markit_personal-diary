@@ -97,8 +97,13 @@ label{
     overflow-y: scroll;
     /* overflow-x: hidden; */
     /* needed to give full h to container-fluid and it worked then!!!! */
+    /* h=100% => container-fluid height. but left-panel is 40+16px less */
     height:100%;
     word-wrap: break-word;
+}
+
+.notepad{
+    height: calc( 100% - 40px - 16px )
 }
 
 /* since, toolbar h=40 .. and this button has box-sizing. thus, h=40 made it vertically centered */
