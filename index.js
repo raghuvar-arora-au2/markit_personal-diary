@@ -16,7 +16,8 @@ var app = express();
 
 mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
     if(err) throw err    
-    app.locals.db = client.db('markit')   
+    app.locals.db = client.db('markit')
+    app.locals.db.createCollection('users')   
     console.log("database connected!")   
 })
 
@@ -32,17 +33,21 @@ app.post('/sign_up' ,function(req,res){
     var username = req.body.username;
 	var email= req.body.email;
     var pass = req.body.password;
-    var cmpass = req.body.cpassword;
-	var password = getHash( pass , phone ); 				
+    var cmpass = req.body.cmpassword;
+    var password = getHash( pass , phone );
+    console.log(name, password);				
 
 	var data = {
         "name":name,
         "usename":username,
 		"email":email,
         "password": password,
-        "cpassword":cpassword,
-	}
-    return res.redirect('./index.html');  
+        "cmpass":cmpass,
+    }
+    req.app.locals.db.collection('users').insert(data, function(err, data) {
+    if(err) throw err
+    res.redirect('./index.html');  
+    }) 
 })
 
 app.post('/',function(req,res){
