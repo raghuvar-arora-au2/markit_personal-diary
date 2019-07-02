@@ -328,7 +328,7 @@ function uploadFile() {
     ajax.addEventListener("load", completeHandler.bind(this, progressbar), false);
     ajax.addEventListener("error", errorHandler.bind(this, progressbar), false);
     //ajax.addEventListener("abort", abortHandler, false);
-    ajax.open("POST", "http://localhost:8000/upload"); // 
+    ajax.open("POST", window.location.origin+"/upload"); // 
           //use file_upload_parser.php from above url
     ajax.send(formdata);
         
@@ -360,7 +360,7 @@ function completeHandler(fileprogress, event) {
     fileprogress.childNodes[1].style.width=`${100}%`;
     setTimeout(()=>{
         fileprogress.parentNode.removeChild(fileprogress)
-    }, 6000)
+    }, 3000)
     //fileprogress.parentNode.removeChild(fileprogress);
     //_("progressBar").value = 0; //wil clear progress bar after successful upload
 }
