@@ -265,14 +265,14 @@ function offset()
         let width=result.width;
 
         if(height>=width){
-            if(height>500)
-                {height=500}
+            if(height>400)
+                {height=400}
             width="auto"
         }
         else{
             height="auto";
-            if(width>500)
-                {width=500;}
+            if(width>400)
+                {width=400;}
         }
         height=String(height);
         width=String(width);
@@ -288,7 +288,7 @@ function offset()
 
         
         
-        ta.value=taleft+`<audio control><source type="audio/ogg" src="${result.url}"><audio>`+taright;
+        ta.value=taleft+`<audio controls><source type="audio/ogg" src="${result.url}"><audio>`+taright;
 
       }
 
@@ -305,18 +305,18 @@ function offset()
         let width=result.width;
 
         if(height>=width){
-            if(height>500)
-                {height=500}
+            if(height>400)
+                {height=400}
             width="auto"
         }
         else{
             height="auto";
-            if(width>500)
-                {width=500;}
+            if(width>400)
+                {width=400;}
         }
         height=String(height);
         width=String(width);
-    ta.value=taleft+`<video width=${width} height=${height} control><source type="video/mp4" src="${result.url}"><video>`+taright;
+    ta.value=taleft+`<video width=${width} height=${height} controls><source type="video/mp4" src="${result.url}"><video>`+taright;
 
       }
 
