@@ -1,9 +1,9 @@
-if(process.env.MY_DB)
-    var url = process.env.MY_DB
-else
-    var url = "mongodb://127.0.0.1:27017/"
+// if(process.env.MY_DB)
+//     var url = process.env.MY_DB
+// else
+//     var url = "mongodb://127.0.0.1:27017/"
 
-// var url = "mongodb://127.0.0.1:27017/"
+var url = "mongodb://127.0.0.1:27017/"
 
 var express = require('express');
 var expressSession = require('express-session');
@@ -98,5 +98,5 @@ app.post( "/upload", multerUploads, ( req, res ) => {
 
 
 
-app.listen(process.env.PORT || 3000);
-// app.listen(3000)
+// app.listen(process.env.PORT || 3000);
+app.listen(3000)
