@@ -9,7 +9,6 @@ const cloudinaryConfig = ( req, res, next ) => {
         api_key: "893174125255488",
         api_secret: "GzS2jDFDRkGbTYJ2i-XPziaME8A",
     } );
-    console.log( "here" );
     next();
 };
 
