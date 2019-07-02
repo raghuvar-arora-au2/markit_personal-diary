@@ -13,19 +13,19 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button> 
+          <form class="form-inline my-2 my-lg-0"  style = "margin-left:42%;margin-right:5%"  >
           <div class="login-container" >
-            <form class="form-inline my-2 my-lg-0" >
-              <from id ="form-group" action="/login" method="POST" name="myform" style = "margin-left:42%;margin-right:5%">
+              <from id ="form" action="/login" method="POST" name="myform">
                       <input type="text" placeholder="Username" name="username">
                       <input type="text" placeholder="Password" name="psw">
               <button class="btn  my-2 my-sm-0" style="background-color:purple;color:white" type="submit">Login</button>
               <botton class="btn  my-2 my-sm-0" style="background-color:purple" type="submit" ><a href="password.html" style="color:white">Reset Password</a></botton>
             </form>
-          </from>
           </div>
+          </from>
         </nav>
     <div class=".signup-form" style ="margin-left:65%; margin-right:6%;margin-top:5%">
-      <form class=".signup-form" method="POST" action="/sign-up">
+      <form class=".signup-form" action="/signup" method="POST" >
           <div class="form-group">
         <div class="row">
           <div class="col-md-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
@@ -45,39 +45,42 @@
               <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
           </div>  
       <div class="form-group">
-              <button type="submit" class="btn  btn-lg btn-block" style="background-color:purple;color:white">Register Now</button>
+              <button type="submit" class="btn  btn-lg btn-block" style="background-color:purple;color:white">signup</button>
           </div>
       </form>
       </div>
-            <!-- <script>
+            <script>
                 $(document).ready(function() {
-                $("#register").click(function() {
+                $("#signup").click(function() {
                 var name = $("#name").val();
-                var username = $("username").val();
+                var username = $("#username").val();
                 var email = $("#email").val();
                 var password = $("#password").val();
-                var cpassword = $("#cpassword").val();
-                if (name == '' || email == '' || password == '' || cpassword == '') {
+                var cmpassword = $("#cmpassword").val();
+                if (name == '' || username == '' || email == '' || password == '' || cmpassword == '') {
                 alert("Please fill all fields...!!!!!!");
                 } else if ((password.length) < 8) {
                 alert("Password should atleast 8 character in length...!!!!!!");
-                } else if (!(password).match(cpassword)) {
+                } else if (!(password).match(cmpassword)) {
                 alert("Your passwords don't match. Try again?");
                 } else {
-                $.post("register.javascript", {
-                name1: name,
-                email1: email,
-                password1: password
+                $.post("signup", {
+                name: name,
+                username: username,
+                email: email,
+                password: password,
+                cmpassword: cmpassword
                 }, function(data) {
                 if (data == 'You have Successfully Registered.....') {
+                  console.log('You have Successfully Registered.....');
                 $("form")[0].reset();
                 }
-                alert(data);
+                
                 });
                 }
                 });
                 });
-            </script>     -->
+            </script>    
         <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="

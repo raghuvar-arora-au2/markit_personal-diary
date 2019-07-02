@@ -24,50 +24,63 @@ mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
 app.use(bodyParser.json());
 
 app.use(express.static('./public'));
+app.use(bodyParser.urlencoded({ 
+    extended: true
+})); 
 
 
 
 
-app.post('/sign_up' ,function(req,res){
+app.post('/signup' ,function(req,res){
     var name = req.body.name;
     var username = req.body.username;
-	var email= req.body.email;
-    var pass = req.body.password;
-    var cmpass = req.body.cmpassword;
-    var password = getHash( pass , phone );
-    console.log(name, password);				
+	var email = req.body.email;
+    var password = req.body.password;
+    var cmpassword = req.body.cmpassword;				
 
 	var data = {
         "name":name,
-        "usename":username,
+        "username":username,
 		"email":email,
         "password": password,
-        "cmpass":cmpass,
+        "cmpassword":cmpassword,
     }
-    req.app.locals.db.collection('users').insert(data, function(err, data) {
+    req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
     if(err) throw err
-    res.redirect('./index.html');  
-    }) 
+    console.log("Record inserted Successfully");
+     
+    });
+    res.redirect('/index.html'); 
 })
 
-app.post('/',function(req,res){
-    if(req.session.loggedIn == "true") {
-        res.redirect('/index.html');
-    }
-    else
-    {
-        res.redirect('./index.html');
-    }
-});
+
+
+// app.post('/login',function(req,res){
+//     var username = req.body.username;
+//     var password = req.body.password;
+//     if(username =='username' && password =='password') {
+//         req.session.loggedIn = "true";
+//         res.redirect("/notes");
+//     }
+// });
 
 app.post('/login',function(req,res){
     var username = req.body.username;
     var password = req.body.password;
-    if(username =='username' && password =='password') {
-        req.session.loggedIn = "true";
-        res.redirect("/notes");
-    }
-});
+    req.app.locals.db.collection('users').findOne(data, function(err, collection) {
+        if(user ===null) {
+            res.end("Login invalid");
+        }
+        else if (user.username === req.body.name && user.password === req.body.password){
+            res.render('completeprofile',{profileData:user});
+          } else {
+            console.log("Credentials wrong");
+            res.end("Login invalid");
+          }
+         
+        });
+        res.redirect('/notes'); 
+})
 
 app.engine('hbs', hbs({extname:'hbs'}))
 app.set('view engine', 'hbs');
