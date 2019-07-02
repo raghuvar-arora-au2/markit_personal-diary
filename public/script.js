@@ -253,16 +253,31 @@ function offset()
   
     }
 
-    function setText(index, link){
+    function setText(index, result){
         //debugger;
         let ta=document.getElementById("pad");
         let taleft=(ta.value).substring(0, index);
         let taright=(ta.value).substring(index+1,(ta.value).length );
-        ta.value=taleft+`<video width="220" height="220" controls>
-       <source src="${link}" type="video/mp4">
-       <source src="movie.ogg" type="video/ogg">
-      Your browser does not support the video tag.
-      </video>`+taright;
+    //     ta.value=taleft+`<video width="220" height="220" controls>
+    //    <source src="${link}" type="video/mp4"></video>\n`+taright;
+
+        let height=result.height;
+        let width=result.width;
+
+        if(height>=width){
+            if(height>500)
+                {height=500}
+            width="auto"
+        }
+        else{
+            height="auto";
+            if(width>500)
+                {width=500;}
+        }
+        height=String(height);
+        width=String(width);
+    ta.value=taleft+`<img width=${width} height=${height} src="${result.url}">`+taright;
+
       }
 
 function _(el) {
@@ -277,15 +292,16 @@ function uploadFile() {
 
     let index=offset()||0;
     var file = document.getElementById("picture-input");
-    var fileprogress=`<div class="progress" style="height:15px; width:30%;"  >
-			
-        <div id="${file.value}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
-  
+    console.log(file.files[0].name);
+    var fileprogress=`<div class="progress" style="height:15px; width:30%; background-color:">
+        
+        <div id="${file.files[0].name}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
+        <span >${file.files[0].name}</span>
         </div>
-        <span >${file.value}</span>
+        
     </div><br>`
-
-    stack.innerHTML=fileprogress+stack.innerHTML;
+    if(file.value)
+        {stack.innerHTML=fileprogress+stack.innerHTML;}
 
     let progressbar=stack.getElementsByTagName("div")[0];
 
@@ -295,15 +311,16 @@ function uploadFile() {
 
     // alert(file.name+" | "+file.size+" | "+file.type);
     var formdata = new FormData();
-    formdata.append("file", file);
+    formdata.append("file", file.files[0]);
     var ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function()
         {
         if (ajax.readyState == 4 && ajax.status == 200)
             {
             console.log(ajax.responseText)
-            let link=(JSON.parse(ajax.responseText).data.image); // Another callback here
-            setText(index, link)
+            let result=(JSON.parse(ajax.responseText).data.result); // Another callback here
+            setText(index, result)
+
             }
         }; 
         let i=0;
@@ -321,9 +338,14 @@ function uploadFile() {
 
 function errorHandler(fileprogress, event){
     fileprogress.childNodes[1].style.backgroundColor="red";
+    setTimeout(()=>{
+        fileprogress.parentNode.removeChild(fileprogress)
+    }, 6000)
     //wait for 5 seconds and remove child
     
 }
+
+
 function progressHandler(fileprogress, event) {
 
     //_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
@@ -335,6 +357,10 @@ function progressHandler(fileprogress, event) {
 
 function completeHandler(fileprogress, event) {
     //_("status").innerHTML = event.target.responseText;
-    fileprogress.parentNode.removeChild(fileprogress);
+    fileprogress.childNodes[1].style.width=`${100}%`;
+    setTimeout(()=>{
+        fileprogress.parentNode.removeChild(fileprogress)
+    }, 6000)
+    //fileprogress.parentNode.removeChild(fileprogress);
     //_("progressBar").value = 0; //wil clear progress bar after successful upload
 }
