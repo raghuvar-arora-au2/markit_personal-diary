@@ -89,7 +89,7 @@ label{
     bottom:0
 }
 
-#markdown, .notepad{
+#markdown{
     /* position: relative; */
     /* top: 40px;
     bottom: 0; */
@@ -99,11 +99,14 @@ label{
     /* needed to give full h to container-fluid and it worked then!!!! */
     /* h=100% => container-fluid height. but left-panel is 40+16px less */
     height:100%;
-    word-wrap: break-word;
+    word-wrap: break-word
 }
 
 .notepad{
-    height: calc( 100% - 40px - 16px )
+    height: calc( 100% - 40px - 16px );
+    max-width: 100%;
+    overflow-y: scroll;
+    word-wrap: break-word
 }
 
 /* since, toolbar h=40 .. and this button has box-sizing. thus, h=40 made it vertically centered */
