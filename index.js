@@ -70,13 +70,15 @@ app.delete("/delete", multerUploads,(req,res)=>{
 })
 
 app.post( "/upload", multerUploads, ( req, res ) => {
-    if ( req.session ) {
+    if ( 1 ) {
+        console.log(req.file);
         if ( req.file ) {
+            console.log("dfsdfsd");
             let path=req.body.path
-            console.log(path);
             const file = dataUri( req ).content;
             return uploader.upload( file, () => { }, { resource_type: "auto", folder: path } ).then( ( result ) => {
                 const image = result.url;
+                console.log(image);
                 return res.status( 200 ).json( {
                     messge: "Your image has been uploded successfully to cloudinary",
                     data: {
