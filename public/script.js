@@ -78,7 +78,8 @@ $(document).on('click', '.note', function(){
         console.log(filename, foldername, "onclick note")
         createOrReadNote(filename, foldername) 
         // https://stackoverflow.com/questions/11117216/css-width-calc100-100px-alternative-using-jquery      
-        $('.pad--toolbar').removeClass('d-none').css('height', 'calc( 100% - 56px )') 
+        $('.pad--toolbar').removeClass('d-none')
+        $('.notepad').css('height', 'calc( 100% - 56px )') 
         // $('.edit--note').removeClass('d-none') 
 })
 
