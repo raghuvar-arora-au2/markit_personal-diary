@@ -104,7 +104,8 @@ label{
 }
 
 .notepad{
-    height: calc( 100% - 40px - 16px );
+    height:100%;
+    /* height: calc( 100% - 40px - 16px ); in script.js s*/
     /* width of container-fluid is it? bcoz it has a pos defined */
     max-width: 100%;
     overflow-y: scroll;
