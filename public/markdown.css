@@ -49,6 +49,8 @@ a, a:hover{
 } */
 
 .main-row{
+    /* so that sidebar can take it as it's h=100% */
+    position:relative;
     margin-left:-15px;
     margin-right:15px
 }
