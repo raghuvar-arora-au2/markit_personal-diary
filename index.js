@@ -68,22 +68,20 @@ app.post('/login',function(req,res){
     var username = req.body.username;
     var password = req.body.password;
     var data  = {
-        username:'username',
-        password:'password'
+        username:username,
+        password:password
     }
     req.app.locals.db.collection('users').findOne(data, function(err, user) {
         if(user ===null) {
             res.end("Login invalid");
         }
         else if (user.username === req.body.username && user.password === req.body.password){
-            res.render('/notes',{notes});
+            res.redirect('/notes');
           } else {
             console.log("Credentials wrong");
             res.end("Login invalid");
           }
-          res.redirect('/notes'); 
         });
-       
 })
 
 app.engine('hbs', hbs({extname:'hbs'}))
