@@ -1,4 +1,5 @@
-html, body, .main-row, .notepad, textarea{
+html, body, .main-row, #pad, textarea{
+    /* pad=100% => take up all the .notepad height */
     height:100%; 
     width:100%
 }
