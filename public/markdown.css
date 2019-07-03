@@ -48,7 +48,14 @@ a, a:hover{
     color:white
 } */
 
+/* .fs too */
+.col-md-2{
+    height:100%
+}
+
 .main-row{
+    /* so that sidebar .fs can take it as it's h=100% */
+    position:relative;
     margin-left:-15px;
     margin-right:15px
 }
@@ -90,7 +97,7 @@ label{
     bottom:0
 }
 
-#markdown{
+#markdown, .notepad{
     /* position: relative; */
     /* top: 40px;
     bottom: 0; */
@@ -99,17 +106,18 @@ label{
     /* overflow-x: hidden; */
     /* needed to give full h to container-fluid and it worked then!!!! */
     /* h=100% => container-fluid height. but left-panel is 40+16px less */
+
+    /* height: calc( 100% - 40px - 16px ); in script.js s*/
+    /* width of container-fluid is it? bcoz it has a pos defined */
     height:100%;
     word-wrap: break-word
 }
 
-.notepad{
-    height:100%;
-    /* height: calc( 100% - 40px - 16px ); in script.js s*/
-    /* width of container-fluid is it? bcoz it has a pos defined */
-    max-width: 100%;
-    overflow-y: scroll;
-    word-wrap: break-word
+.files--folders{
+    height:calc( 100% - 40px - 1rem );
+    /* max-width: 100%; */
+    overflow-y: scroll
+    /* word-wrap: break-word */
 }
 
 /* since, toolbar h=40 .. and this button has box-sizing. thus, h=40 made it vertically centered */
