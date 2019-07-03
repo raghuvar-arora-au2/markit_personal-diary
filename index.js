@@ -75,15 +75,15 @@ app.post('/login',function(req,res){
         if(user ===null) {
             res.end("Login invalid");
         }
-        else if (user.username === req.body.name && user.password === req.body.password){
-            res.render('completeprofile',{profileData:user});
+        else if (user.username === req.body.username && user.password === req.body.password){
+            res.render('/notes',{notes});
           } else {
             console.log("Credentials wrong");
             res.end("Login invalid");
           }
-         
+          res.redirect('/notes'); 
         });
-        res.redirect('/notes'); 
+       
 })
 
 app.engine('hbs', hbs({extname:'hbs'}))
