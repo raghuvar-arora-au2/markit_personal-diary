@@ -90,7 +90,7 @@ label{
     bottom:0
 }
 
-#markdown, .files--folders, .notepad{
+#markdown, .notepad{
     /* position: relative; */
     /* top: 40px;
     bottom: 0; */
@@ -106,13 +106,12 @@ label{
     word-wrap: break-word
 }
 
-/* {
-    height:100%;
-    
-    max-width: 100%;
-    overflow-y: scroll;
-    word-wrap: break-word
-} */
+.files--folders{
+    height:calc( 100% - 40px );
+    /* max-width: 100%; */
+    overflow-y: scroll
+    /* word-wrap: break-word */
+}
 
 /* since, toolbar h=40 .. and this button has box-sizing. thus, h=40 made it vertically centered */
 button[type="button"]{
