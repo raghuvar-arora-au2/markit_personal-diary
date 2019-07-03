@@ -67,7 +67,11 @@ app.post('/signup' ,function(req,res){
 app.post('/login',function(req,res){
     var username = req.body.username;
     var password = req.body.password;
-    req.app.locals.db.collection('users').findOne(data, function(err, collection) {
+    var data  = {
+        username:'username',
+        password:'password'
+    }
+    req.app.locals.db.collection('users').findOne(data, function(err, user) {
         if(user ===null) {
             res.end("Login invalid");
         }
