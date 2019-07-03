@@ -516,3 +516,7 @@ function completeHandler(fileprogress, event) {
     //fileprogress.parentNode.removeChild(fileprogress);
     //_("progressBar").value = 0; //wil clear progress bar after successful upload
 }
+
+document.getElementById("video-input").addEventListener("change", uploadVideo);
+document.getElementById("audio-input").addEventListener("change", uploadAudio);
+document.getElementById("picture-input").addEventListener("change", uploadFile);
