@@ -48,8 +48,12 @@ a, a:hover{
     color:white
 } */
 
+.fs{
+    height:100%
+}
+
 .main-row{
-    /* so that sidebar can take it as it's h=100% */
+    /* so that sidebar .fs can take it as it's h=100% */
     position:relative;
     margin-left:-15px;
     margin-right:15px
