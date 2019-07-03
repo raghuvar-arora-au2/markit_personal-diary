@@ -76,8 +76,10 @@ $(document).on('click', '.note', function(){
         .prev().find('input').val()
 
         console.log(filename, foldername, "onclick note")
-        createOrReadNote(filename, foldername)       
+        createOrReadNote(filename, foldername) 
+        // https://stackoverflow.com/questions/11117216/css-width-calc100-100px-alternative-using-jquery      
         $('.pad--toolbar').removeClass('d-none')
+        $('.notepad').css('height', 'calc( 100% - 56px )') 
         // $('.edit--note').removeClass('d-none') 
 })
 
@@ -102,7 +104,7 @@ $(document).on('click', '.folder', changeBackgroundColor)
 $(document).on('click', '.folder',function(){
         // $('.save--note').addClass('d-none')
         // $('.edit--note').addClass('d-none')
-        $('.pad--toolbar').addClass('d-none')     
+        $('.pad--toolbar').addClass('d-none')   
         // $('textarea').attr('readyonly', 'readonly').css('background-color', '#F1F1F1').val("")   
         $('textarea').attr('readonly', 'readonly').val("")     
   

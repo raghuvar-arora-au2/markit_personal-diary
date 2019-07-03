@@ -1,4 +1,5 @@
-html, body, .main-row, .notepad, textarea{
+html, body, .main-row, #pad, textarea{
+    /* pad=100% => take up all the .notepad height */
     height:100%; 
     width:100%
 }
@@ -89,7 +90,7 @@ label{
     bottom:0
 }
 
-#markdown, .notepad{
+#markdown{
     /* position: relative; */
     /* top: 40px;
     bottom: 0; */
@@ -97,8 +98,18 @@ label{
     overflow-y: scroll;
     /* overflow-x: hidden; */
     /* needed to give full h to container-fluid and it worked then!!!! */
+    /* h=100% => container-fluid height. but left-panel is 40+16px less */
     height:100%;
-    word-wrap: break-word;
+    word-wrap: break-word
+}
+
+.notepad{
+    height:100%;
+    /* height: calc( 100% - 40px - 16px ); in script.js s*/
+    /* width of container-fluid is it? bcoz it has a pos defined */
+    max-width: 100%;
+    overflow-y: scroll;
+    word-wrap: break-word
 }
 
 /* since, toolbar h=40 .. and this button has box-sizing. thus, h=40 made it vertically centered */
