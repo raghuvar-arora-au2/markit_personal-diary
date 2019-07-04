@@ -28,22 +28,20 @@ app.use(bodyParser.urlencoded({
     extended: true
 })); 
 
-
+ 
 
 
 app.post('/signup' ,function(req,res){
     var name = req.body.name;
     var username = req.body.username;
 	var email = req.body.email;
-    var password = req.body.password;
-    var cmpassword = req.body.cmpassword;				
+    var password = req.body.password;				
 
 	var data = {
         "name":name,
         "username":username,
 		"email":email,
-        "password": password,
-        "cmpassword":cmpassword,
+        "password": password
     }
     req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
     if(err) throw err
@@ -53,36 +51,23 @@ app.post('/signup' ,function(req,res){
     res.redirect('/index.html'); 
 })
 
+app.post('/login', function (req, res) {
 
-
-// app.post('/login',function(req,res){
-//     var username = req.body.username;
-//     var password = req.body.password;
-//     if(username =='username' && password =='password') {
-//         req.session.loggedIn = "true";
-//         res.redirect("/notes");
-//     }
-// });
-
-app.post('/login',function(req,res){
-    var username = req.body.username;
-    var password = req.body.password;
-    var data  = {
-        username:username,
-        password:password
-    }
-    req.app.locals.db.collection('users').findOne(data, function(err, user) {
-        if(user ===null) {
-            res.end("Login invalid");
+    req.app.locals.db.collection('users').findOne({
+        username: req.body.log_username,
+        password: req.body.log_password
+    }, function (err, users) {
+        if (users!== 0) {
+            console.log("user exists");
+            res.redirect('/notes'); // main page url
         }
-        else if (user.username === req.body.username && user.password === req.body.password){
-            res.redirect('/notes');
-          } else {
-            console.log("Credentials wrong");
-            res.end("Login invalid");
-          }
-        });
-})
+        else {
+            console.log("no exist");
+            res.redirect('/index.html');
+        }
+    });
+
+});
 
 app.engine('hbs', hbs({extname:'hbs'}))
 app.set('view engine', 'hbs');
