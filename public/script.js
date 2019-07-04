@@ -337,7 +337,7 @@ function uploadFile() {
     let index=offset()||0;
     var file = document.getElementById("picture-input");
     console.log(file.files[0].name);
-    var fileprogress=`<div class="progress" style="height:15px; width:30%; background-color:">
+    var fileprogress=`<div class="progress" style="height:15px; width:100%; background-color:">
         
         <div id="${file.files[0].name}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
         <span >${file.files[0].name}</span>
@@ -391,7 +391,7 @@ function uploadFile() {
         let index=offset()||0;
         var file = document.getElementById("audio-input");
         console.log(file.files[0].name);
-        var fileprogress=`<div class="progress" style="height:15px; width:30%; background-color:">
+        var fileprogress=`<div class="progress" style="height:15px; width:100%; background-color:">
             
             <div id="${file.files[0].name}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
             <span >${file.files[0].name}</span>
@@ -445,7 +445,7 @@ function uploadFile() {
         let index=offset()||0;
         var file = document.getElementById("video-input");
         console.log(file.files[0].name);
-        var fileprogress=`<div class="progress" style="height:15px; width:30%; background-color:">
+        var fileprogress=`<div class="progress" style="height:15px; width:100%; background-color:">
             
             <div id="${file.files[0].name}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
             <span >${file.files[0].name}</span>
