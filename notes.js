@@ -19,12 +19,19 @@ router.get('/', function(req, res) {
 
     // user : abc2 ? 
     // what if no result found? not rendering anything?
-    req.app.locals.db.collection('notes').aggregate([{
-        $group: {
-        _id: "$folder", 
-        notes: { $push: "$note" }
+    req.app.locals.db.collection('notes').aggregate([
+        {
+            $match: {
+                "user_id":user
+            }
+        },
+        {
+            $group: {
+            _id: "$folder", 
+            notes: { $push: "$note" }
+            }
         }
-    }]).toArray(function(err, data){
+]).toArray(function(err, data){
         console.log(data)
         res.render('markdown', {fs:data, username:user}) 
     }

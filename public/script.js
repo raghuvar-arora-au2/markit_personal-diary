@@ -76,8 +76,10 @@ $(document).on('click', '.note', function(){
         .prev().find('input').val()
 
         console.log(filename, foldername, "onclick note")
-        createOrReadNote(filename, foldername)       
+        createOrReadNote(filename, foldername) 
+        // https://stackoverflow.com/questions/11117216/css-width-calc100-100px-alternative-using-jquery      
         $('.pad--toolbar').removeClass('d-none')
+        $('.notepad').css('height', 'calc( 100% - 56px )') 
         // $('.edit--note').removeClass('d-none') 
 })
 
@@ -102,7 +104,7 @@ $(document).on('click', '.folder', changeBackgroundColor)
 $(document).on('click', '.folder',function(){
         // $('.save--note').addClass('d-none')
         // $('.edit--note').addClass('d-none')
-        $('.pad--toolbar').addClass('d-none')     
+        $('.pad--toolbar').addClass('d-none')   
         // $('textarea').attr('readyonly', 'readonly').css('background-color', '#F1F1F1').val("")   
         $('textarea').attr('readonly', 'readonly').val("")     
   
@@ -265,20 +267,62 @@ function offset()
         let width=result.width;
 
         if(height>=width){
-            if(height>500)
-                {height=500}
+            if(height>400)
+                {height=400}
             width="auto"
         }
         else{
             height="auto";
-            if(width>500)
-                {width=500;}
+            if(width>400)
+                {width=400;}
         }
         height=String(height);
         width=String(width);
     ta.value=taleft+`<img width=${width} height=${height} src="${result.url}">`+taright;
 
       }
+
+      function setTextAudio(index, result){
+        //debugger;
+        let ta=document.getElementById("pad");
+        let taleft=(ta.value).substring(0, index);
+        let taright=(ta.value).substring(index+1,(ta.value).length );
+
+        
+        
+        ta.value=taleft+`<audio controls><source type="audio/ogg" src="${result.url}"><audio>`+taright;
+
+      }
+
+
+      function setTextVideo(index, result){
+        //debugger;
+        let ta=document.getElementById("pad");
+        let taleft=(ta.value).substring(0, index);
+        let taright=(ta.value).substring(index+1,(ta.value).length );
+    //     ta.value=taleft+`<video width="220" height="220" controls>
+    //    <source src="${link}" type="video/mp4"></video>\n`+taright;
+
+        let height=result.height;
+        let width=result.width;
+
+        if(height>=width){
+            if(height>400)
+                {height=400}
+            width="auto"
+        }
+        else{
+            height="auto";
+            if(width>400)
+                {width=400;}
+        }
+        height=String(height);
+        width=String(width);
+    ta.value=taleft+`<video width=${width} height=${height} controls><source type="video/mp4" src="${result.url}"><video>`+taright;
+
+      }
+
+
 
 function _(el) {
     return document.getElementById(el);
@@ -318,23 +362,133 @@ function uploadFile() {
         if (ajax.readyState == 4 && ajax.status == 200)
             {
             console.log(ajax.responseText)
-            let result=(JSON.parse(ajax.responseText).data.result); // Another callback here
+            let result=(JSON.parse(ajax.responseText).data.result);
+            
+            // Another callback here
+            //let fileType=(result.url).split('.').pop()
+
             setText(index, result)
 
             }
         }; 
-        let i=0;
     ajax.upload.addEventListener("progress", progressHandler.bind(this, progressbar), false);
     ajax.addEventListener("load", completeHandler.bind(this, progressbar), false);
     ajax.addEventListener("error", errorHandler.bind(this, progressbar), false);
     //ajax.addEventListener("abort", abortHandler, false);
-    ajax.open("POST", "http://localhost:8000/upload"); // 
+    ajax.open("POST", window.location.origin+"/upload"); // 
           //use file_upload_parser.php from above url
     ajax.send(formdata);
         
         
     }
+
+    function uploadAudio() {
+
+        //add a progres bar with id x
+        //take 
+        let stack=document.getElementById("stack");
+    
+        let index=offset()||0;
+        var file = document.getElementById("audio-input");
+        console.log(file.files[0].name);
+        var fileprogress=`<div class="progress" style="height:15px; width:30%; background-color:">
+            
+            <div id="${file.files[0].name}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
+            <span >${file.files[0].name}</span>
+            </div>
+            
+        </div><br>`
+        if(file.value)
+            {stack.innerHTML=fileprogress+stack.innerHTML;}
+    
+        let progressbar=stack.getElementsByTagName("div")[0];
+    
+    
+    
+        //add the above to DOM
+    
+        // alert(file.name+" | "+file.size+" | "+file.type);
+        var formdata = new FormData();
+        formdata.append("file", file.files[0]);
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function()
+            {
+            if (ajax.readyState == 4 && ajax.status == 200)
+                {
+                console.log(ajax.responseText)
+                let result=(JSON.parse(ajax.responseText).data.result);
+                
+                // Another callback here
+                //let fileType=(result.url).split('.').pop()
+    
+                setTextAudio(index, result)
+    
+                }
+            }; 
+        ajax.upload.addEventListener("progress", progressHandler.bind(this, progressbar), false);
+        ajax.addEventListener("load", completeHandler.bind(this, progressbar), false);
+        ajax.addEventListener("error", errorHandler.bind(this, progressbar), false);
+        //ajax.addEventListener("abort", abortHandler, false);
+        ajax.open("POST", window.location.origin+"/upload"); // 
+              //use file_upload_parser.php from above url
+        ajax.send(formdata);
+            
+            
+        }
   
+    function uploadVideo() {
+
+        //add a progres bar with id x
+        //take 
+        let stack=document.getElementById("stack");
+    
+        let index=offset()||0;
+        var file = document.getElementById("video-input");
+        console.log(file.files[0].name);
+        var fileprogress=`<div class="progress" style="height:15px; width:30%; background-color:">
+            
+            <div id="${file.files[0].name}" class="progress-bar progress-bar-striped progress-bar-animated" id="pb" role="progressbar" style="width:0%; background-color:#7A4AAA">
+            <span >${file.files[0].name}</span>
+            </div>
+            
+        </div><br>`
+        if(file.value)
+            {stack.innerHTML=fileprogress+stack.innerHTML;}
+    
+        let progressbar=stack.getElementsByTagName("div")[0];
+    
+    
+    
+        //add the above to DOM
+    
+        // alert(file.name+" | "+file.size+" | "+file.type);
+        var formdata = new FormData();
+        formdata.append("file", file.files[0]);
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function()
+            {
+            if (ajax.readyState == 4 && ajax.status == 200)
+                {
+                console.log(ajax.responseText)
+                let result=(JSON.parse(ajax.responseText).data.result);
+                
+                // Another callback here
+                //let fileType=(result.url).split('.').pop()
+    
+                setTextVideo(index, result)
+    
+                }
+            }; 
+        ajax.upload.addEventListener("progress", progressHandler.bind(this, progressbar), false);
+        ajax.addEventListener("load", completeHandler.bind(this, progressbar), false);
+        ajax.addEventListener("error", errorHandler.bind(this, progressbar), false);
+        //ajax.addEventListener("abort", abortHandler, false);
+        ajax.open("POST", window.location.origin+"/upload"); // 
+              //use file_upload_parser.php from above url
+        ajax.send(formdata);
+            
+            
+        }
 
 function errorHandler(fileprogress, event){
     fileprogress.childNodes[1].style.backgroundColor="red";
@@ -360,7 +514,11 @@ function completeHandler(fileprogress, event) {
     fileprogress.childNodes[1].style.width=`${100}%`;
     setTimeout(()=>{
         fileprogress.parentNode.removeChild(fileprogress)
-    }, 6000)
+    }, 3000)
     //fileprogress.parentNode.removeChild(fileprogress);
     //_("progressBar").value = 0; //wil clear progress bar after successful upload
 }
+
+document.getElementById("video-input").addEventListener("change", uploadVideo);
+document.getElementById("audio-input").addEventListener("change", uploadAudio);
+document.getElementById("picture-input").addEventListener("change", uploadFile);
