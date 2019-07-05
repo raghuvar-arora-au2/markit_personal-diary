@@ -85,10 +85,10 @@ app.post('/',function(req,res){
 })
 
 
-// app.get('/logout', function (req, res) {
-//    req.session.user = null;
-//    req.session.destroy();
-// });
+app.get('/logout', function (req, res) {
+   req.session.user = null;
+   req.session.destroy();
+});
 
 app.engine('hbs', hbs({extname:'hbs'}))
 app.set('view engine', 'hbs');

@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/attainu-falcon/markit_personal-diary/issues"
   },
-  "homepage": "https://github.com/attainu-falcon/markit_personal-diary#readme"
+    "homepage": "https://github.com/attainu-falcon/markit_personal-diary#readme"
     "mongodb": "^3.2.7",
     "mongoose": "^5.6.1",
     "multer": "^1.4.1",
