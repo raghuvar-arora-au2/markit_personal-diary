@@ -11,9 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cloudinary": "^1.14.0",
+    "connect-multiparty": "^2.2.0",
+    "datauri": "^2.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.16.2",
+
     "fs": "0.0.1-security",
     "inherits": "^2.0.4",
     "mkdirp": "^0.5.1",
@@ -31,4 +35,58 @@
     "url": "https://github.com/attainu-falcon/markit_personal-diary/issues"
   },
   "homepage": "https://github.com/attainu-falcon/markit_personal-diary#readme"
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.6.1",
+    "multer": "^1.4.1",
+    "path": "^0.12.7",
+    "showdown": "^1.9.0"
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
