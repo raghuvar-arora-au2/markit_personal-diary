@@ -80,9 +80,7 @@ app.post('/login', function (req, res) {
 
 });
 
-app.post('/',function(req,res){
-    res.reindirect('index.html');
-})
+
 
 
 app.get('/logout', function (req, res) {
