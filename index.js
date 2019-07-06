@@ -84,8 +84,7 @@ app.post('/login', function (req, res) {
 
 
 app.get('/logout', function (req, res) {
-   req.session.user = null;
-   req.session.destroy();
+   res.redirect('/index.html');
 });
 
 app.engine('hbs', hbs({extname:'hbs'}))
