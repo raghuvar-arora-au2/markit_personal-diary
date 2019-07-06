@@ -13,14 +13,17 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button> 
-          <form class="form-inline my-2 my-lg-0" action='/login' method='POST' style = "margin-left:42%"  >
-                      <input type="text" placeholder="Username" name="username">
-                      <input type="text" placeholder="Password" name="password">
+          <form class="form-inline my-2 my-lg-0" action='/login' method='POST' style = "margin-left:40%">
+              <div class="col-md-5"> <input type="text" placeholder="Username" name="username"> </div>
+              <div class="col-md-5"> <input type="text" placeholder="Password" name="password"> </div>
+            
               <button class="btn  my-2 my-sm-0" style="background-color:purple;color:white" type="submit">Login</button>
           </form>
-          <form>
-            <button class="btn my-2 my-sm-0" style="background-color:purple;color:white" type="submit"><a href= "password.html">Reset Password</a></button>
+          
+          <form class="form-inline"  style="margin-right:2%"> 
+            <button class="btn " style="background-color:purple" type="submit"><a href= "password.html" style="color:white">Reset Password</a></button>
           </form>
+          
         </nav>
     <div class=".signup-form" style ="margin-left:65%; margin-right:6%;margin-top:5%">
       <form class=".signup-form" action="/signup" method="POST" >
@@ -39,14 +42,16 @@
       <div class="form-group">
               <input type="password" class="form-control" name="password" placeholder="Password" required="required">
           </div>
-      <!-- <div class="form-group">
-              <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-          </div>   -->
       <div class="form-group">
               <button type="submit" class="btn  btn-lg btn-block" style="background-color:purple;color:white">signup</button>
           </div>
       </form>
       </div>
+      <div class="col-md-5 signup-return" style="display:none;">
+          <h3>
+             You have successfully registered!
+          </h3>
+       </div>
             <script>
                 $(document).ready(function() {
                 $("#signup").click(function() {

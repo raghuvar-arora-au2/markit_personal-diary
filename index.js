@@ -11,6 +11,7 @@ var hbs = require('express-handlebars');
 var mongoClient = require('mongodb').MongoClient
 
 var app = express();
+var port = 3000;
 
 const multipart = require( "connect-multiparty" );
 
@@ -35,12 +36,19 @@ mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
 app.use(bodyParser.json());
 
 app.use(express.static('./public'));
+app.use(session({
+    secret: "Express session secret!"
+}));
 app.use(bodyParser.urlencoded({ 
     extended: true
 })); 
 
- 
-
+app.use(function(req,res,next){
+    console.log(req.method + " " + req.protocol + "://" + req.hostname + port + req.originalUrl);
+    console.log("session ID:" + req.session.id);
+    console.log(req.body);
+    next();
+});
 
 app.post('/signup' ,function(req,res){
     var name = req.body.name;
@@ -56,35 +64,59 @@ app.post('/signup' ,function(req,res){
     }
     req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
     if(err) throw err
-    console.log("Record inserted Successfully");
+    res.json("Record inserted Successfully");
      
     });
     res.redirect('/index.html'); 
 })
 
-app.post('/login', function (req, res) {
-
-    req.app.locals.db.collection('users').findOne({
-        username: req.body.log_username,
-        password: req.body.log_password
-    }, function (err, users) {
-        if (users!== 0) {
-            console.log("user exists");
-            res.redirect('/notes'); // main page url
-        }
-        else {
-            console.log("no exist");
-            res.redirect('/index.html');
-        }
-    });
-
+app.get('/', function(req,res){
+    if(req.session.loggedIn == "true") {
+        res.send("Welcome to the protected page!")
+    }
 });
 
+app.post('/login', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    req.app.locals.db.collection('users').findOne({
+        username:req.body.log_username,
+        password:req.body.log_password },
+        function(err,users) {
+            if(users!==0) {
+        res.redirect('/notes');
+    }
+    else {
+        res.redirect('/index.html');
+    }
+})
+    // req.app.locals.db.collection('users').findOne({
+    //     username: req.body.log_username,
+    //     password: req.body.log_password
+    // }, function (err, users) {
+    //     if (users!== 0) {
+    //         console.log("user exists");
+    //         res.redirect('/notes'); // main page url
+    //     }
+    //     else {
+    //         console.log("no exist");
+    //         res.redirect('/index.html');
+    //     }
+    // });
 
-
+});
+app.get('/users', function(req,res){
+    if(res.session.login == true) {
+        res.send("welcome" + req.session.userName)
+    }
+    else {
+        res.send("You are blocked :(")
+    }
+})
 
 app.get('/logout', function (req, res) {
-   res.redirect('/index.html');
+    req.session.destroy();
+    res.redirect('/index.html');
 });
 
 app.engine('hbs', hbs({extname:'hbs'}))
