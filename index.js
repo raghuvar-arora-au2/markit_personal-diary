@@ -36,19 +36,19 @@ mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
 app.use(bodyParser.json());
 
 app.use(express.static('./public'));
-app.use(session({
-    secret: "Express session secret!"
-}));
+// app.use(session({
+//     secret: "Express session secret!"
+// }));
 app.use(bodyParser.urlencoded({ 
     extended: true
 })); 
 
-app.use(function(req,res,next){
-    console.log(req.method + " " + req.protocol + "://" + req.hostname + port + req.originalUrl);
-    console.log("session ID:" + req.session.id);
-    console.log(req.body);
-    next();
-});
+// app.use(function(req,res,next){
+//     console.log(req.method + " " + req.protocol + "://" + req.hostname + port + req.originalUrl);
+//     console.log("session ID:" + req.session.id);
+//     console.log(req.body);
+//     next();
+// });
 
 app.post('/signup' ,function(req,res){
     var name = req.body.name;
@@ -64,45 +64,33 @@ app.post('/signup' ,function(req,res){
     }
     req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
     if(err) throw err
-    res.json("Record inserted Successfully");
+    console.log("Record inserted Successfully");
+    res.sendfile("Record inserted Successfully");
      
     });
     res.redirect('/index.html'); 
 })
 
-app.get('/', function(req,res){
-    if(req.session.loggedIn == "true") {
-        res.send("Welcome to the protected page!")
-    }
-});
-
 app.post('/login', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
+    var data = {
+        "username":username,
+        "password":password
+    }
     req.app.locals.db.collection('users').findOne({
-        username:req.body.log_username,
-        password:req.body.log_password },
-        function(err,users) {
-            if(users!==0) {
-        res.redirect('/notes');
-    }
-    else {
-        res.redirect('/index.html');
-    }
-})
-    // req.app.locals.db.collection('users').findOne({
-    //     username: req.body.log_username,
-    //     password: req.body.log_password
-    // }, function (err, users) {
-    //     if (users!== 0) {
-    //         console.log("user exists");
-    //         res.redirect('/notes'); // main page url
-    //     }
-    //     else {
-    //         console.log("no exist");
-    //         res.redirect('/index.html');
-    //     }
-    // });
+        username: req.body.log_username,
+        password: req.body.log_password
+    }, function (err, users) {
+        if (users==0) {
+            console.log("no exit");
+            res.redirect('/index.html');
+        }
+        else {
+            console.log(" exist");
+            res.redirect('/notes');
+        }
+    });
 
 });
 app.get('/users', function(req,res){
@@ -115,7 +103,6 @@ app.get('/users', function(req,res){
 })
 
 app.get('/logout', function (req, res) {
-    req.session.destroy();
     res.redirect('/index.html');
 });
 
