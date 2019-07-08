@@ -11,7 +11,6 @@ var hbs = require('express-handlebars');
 var mongoClient = require('mongodb').MongoClient
 
 var app = express();
-var port = 3000;
 
 const multipart = require( "connect-multiparty" );
 
@@ -36,39 +35,30 @@ mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
 app.use(bodyParser.json());
 
 app.use(express.static('./public'));
-// app.use(session({
-//     secret: "Express session secret!"
-// }));
+
 app.use(bodyParser.urlencoded({ 
     extended: true
 })); 
 
-// app.use(function(req,res,next){
-//     console.log(req.method + " " + req.protocol + "://" + req.hostname + port + req.originalUrl);
-//     console.log("session ID:" + req.session.id);
-//     console.log(req.body);
-//     next();
-// });
-
 app.post('/signup' ,function(req,res){
-    var name = req.body.name;
+    var f_name = req.body.f_name;
+    var l_name = req.body.l_name;
     var username = req.body.username;
 	var email = req.body.email;
     var password = req.body.password;				
 
 	var data = {
-        "name":name,
+        "f_name":f_name,
+        "l_name":l_name,
         "username":username,
 		"email":email,
         "password": password
     }
     req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
     if(err) throw err
-    console.log("Record inserted Successfully");
-    res.sendfile("Record inserted Successfully");
-     
+    console.log("record is successfully registered");
     });
-    res.redirect('/index.html'); 
+    res.redirect('/index.html');
 })
 
 app.post('/login', function (req, res) {
@@ -79,27 +69,18 @@ app.post('/login', function (req, res) {
         "password":password
     }
     req.app.locals.db.collection('users').findOne({
-        username: req.body.log_username,
-        password: req.body.log_password
+        username: req.body.username,
+        password: req.body.password
     }, function (err, users) {
-        if (users==0) {
-            console.log("no exit");
-            res.redirect('/index.html');
-        }
-        else {
-            console.log(" exist");
+        if (users!==0) {
+            console.log("user exit");
             res.redirect('/notes');
         }
+        else {
+            console.log("no exist");
+            res.redirect('/index.html');
+        }
     });
-
-});
-app.get('/users', function(req,res){
-    if(res.session.login == true) {
-        res.send("welcome" + req.session.userName)
-    }
-    else {
-        res.send("You are blocked :(")
-    }
 })
 
 app.get('/logout', function (req, res) {
@@ -150,10 +131,10 @@ app.post( "/upload", multerUploads, ( req, res ) => {
             } ) );
         }
     }
-} );
+});
 
 
 
 
 app.listen(process.env.PORT || 3000);
-// app.listen(3000)
+//app.listen(3000);
