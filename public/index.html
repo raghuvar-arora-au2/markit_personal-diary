@@ -55,12 +55,11 @@
             <script>
                 $(document).ready(function() {
                 $("#signup").click(function() {
-                var f_name = $("#f_name").val();
-                var l_name = $("#l_name").val();
+                var name = $("#name").val();
                 var username = $("#username").val();
                 var email = $("#email").val();
                 var password = $("#password").val();
-                if (f_name == '' || l_name == '' || username == '' || email == '' || password == '') {
+                if (name == ''|| username == '' || email == '' || password == '') {
                 alert("Please fill all fields...!!!!!!");
                 } else if ((password.length) < 8) {
                 alert("Password should atleast 8 character in length...!!!!!!");
@@ -68,8 +67,7 @@
                 alert("Your passwords don't match. Try again?");
                 } else {
                 $.post("signup", {
-                f_name: f_name,
-                l_name:l_name,
+                name:name,
                 username: username,
                 email: email,
                 password: password

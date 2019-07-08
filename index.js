@@ -40,16 +40,16 @@ app.use(bodyParser.urlencoded({
     extended: true
 })); 
 
+app.use(session({secret:"dfsdfa"}));
+
 app.post('/signup' ,function(req,res){
-    var f_name = req.body.f_name;
-    var l_name = req.body.l_name;
+    var name = req.body.name;
     var username = req.body.username;
 	var email = req.body.email;
     var password = req.body.password;				
 
 	var data = {
-        "f_name":f_name,
-        "l_name":l_name,
+        "name":name,
         "username":username,
 		"email":email,
         "password": password
@@ -72,18 +72,21 @@ app.post('/login', function (req, res) {
         username: req.body.username,
         password: req.body.password
     }, function (err, users) {
-        if (users!==0) {
-            console.log("user exit");
+        if(users) {
+            req.session.user = true;
+            req.session.name = username;
+            console.log(" exit");
             res.redirect('/notes');
         }
         else {
-            console.log("no exist");
+            console.log(" no exist");
             res.redirect('/index.html');
         }
     });
 })
 
 app.get('/logout', function (req, res) {
+    req.session.destroy();
     res.redirect('/index.html');
 });
 
