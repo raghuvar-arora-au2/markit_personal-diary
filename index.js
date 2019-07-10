@@ -41,7 +41,8 @@ app.get('/', function(req, res, next){
     if (req.session.user) {
         res.redirect('/notes')
     }
-    next()
+    else
+        next()
   });
 
 // app.get('/', function(req, res){
