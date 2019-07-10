@@ -5,7 +5,7 @@ var router = express.Router()
 var showdown = require('showdown');
 converter = new showdown.Converter();
 
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
     if(req.session.user){
     var user = req.session.name
     // var folders = []
@@ -36,15 +36,22 @@ router.get('/', function(req, res) {
 ]).toArray(function(err, data){
         console.log("rendering the notes page!")
         res.render('markdown', {fs:data, username:user})
+        next()
         // return;
     }
     )
 }
-else
-    // res.redirect was throwing error - headers already sent
-    router.use(express.static('./public'));
-
+ 
 })
+
+
+router.get('/', function(req, res){
+    if(!req.session.user){
+    // res.redirect was throwing error - headers already sent
+    res.redirect('/index.html')
+    }
+})
+
 
 router.post('/text-to-html', function(req, res){  
     text = req.body.content;
