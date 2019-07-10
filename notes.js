@@ -6,7 +6,8 @@ var showdown = require('showdown');
 converter = new showdown.Converter();
 
 router.get('/', function(req, res) {
-    var user = "abc2" // req.session.name
+    if(req.session.user){
+    var user = req.session.name
     // var folders = []  
     var notes = [] 
 
@@ -36,6 +37,14 @@ router.get('/', function(req, res) {
         res.render('markdown', {fs:data, username:user}) 
     }
     )
+
+}
+
+else{
+    res.send("login to view this page")
+
+}
+
 })
 
 router.post('/text-to-html', function(req, res){  
@@ -45,7 +54,7 @@ router.post('/text-to-html', function(req, res){
 })
 
 router.post('/update', function(req, res){
-    var user = "abc2" 
+    var user = req.session.name 
     var note = req.body.note
     var content = req.body.content
     var foldername = req.body.folder
@@ -74,7 +83,7 @@ router.post('/edit-folder-name', function(req, res){
 
 
 router.post('/edit-note-name', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var new_name = req.body.new_name
     var old_name = req.body.old_name
     req.app.locals.db.collection('notes').find({"user_id": user, "note": old_name})
@@ -87,7 +96,7 @@ router.post('/edit-note-name', function(req, res){
 
 
 router.get('/read', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var folder = req.query.folder
     var note = req.query.note
     console.log("{ user_id:",user, ", note:",note, " ,folder:", folder, " }")
@@ -111,7 +120,7 @@ router.get('/read', function(req, res){
 
 
 router.post('/delete-a-note', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var note = req.body.note
     var folder = req.body.folder
     req.app.locals.db.collection('notes').deleteOne({"user_id":user, "note":note, folder:folder}, function(err, result){
@@ -122,7 +131,7 @@ router.post('/delete-a-note', function(req, res){
     })     
 
 router.post('/delete-a-folder', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var folder = req.body.folder
     req.app.locals.db.collection('notes').deleteOne({"user_id":user, "folder":folder}, function(err, result){
             if(err) throw err
