@@ -37,13 +37,8 @@ router.get('/', function(req, res) {
         res.render('markdown', {fs:data, username:user}) 
     }
     )
-
 }
-
-else{
-    res.redirect('/index.html')
-
-}
+res.redirect('/index.html')
 
 })
 
