@@ -36,7 +36,8 @@ app.use(bodyParser.json());
 
 app.use(session({secret:"dfsdfa"}));
 
-app.use(function(req, res){
+// custom mw shud have next()
+app.use(function(req, res, next){
     if (req.session.user) {
         res.redirect('/notes')
     }
@@ -44,6 +45,7 @@ app.use(function(req, res){
     else {
         app.use(express.static('./public'));
     }
+    next()
   });
 
 
