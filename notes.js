@@ -5,7 +5,7 @@ var router = express.Router()
 var showdown = require('showdown');
 converter = new showdown.Converter();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     if(req.session.user){
     var user = req.session.name
     // var folders = []
@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
 ]).toArray(function(err, data){
         console.log("rendering the notes page!")
         res.render('markdown', {fs:data, username:user})
-        next()
+        // next()
         // return;
     }
     )
