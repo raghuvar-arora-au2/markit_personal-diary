@@ -34,7 +34,16 @@ mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
 
 app.use(bodyParser.json());
 
-app.use(express.static('./public'));
+app.use(function(req, res){
+    if (req.session.user) {
+        res.redirect('/notes')
+    }
+     
+    else {
+        app.use(express.static('./public'));
+    }
+  });
+
 
 app.use(bodyParser.urlencoded({ 
     extended: true
