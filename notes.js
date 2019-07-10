@@ -5,7 +5,8 @@ var router = express.Router()
 var showdown = require('showdown');
 converter = new showdown.Converter();
 
-router.use('/', function(req, res) {
+// https://stackoverflow.com/questions/39000904/what-happens-if-you-overload-the-same-route-with-express-js
+router.get('/', function(req, res, next) {
     if(req.session.user){
     var user = req.session.name
     // var folders = []
@@ -41,6 +42,8 @@ router.use('/', function(req, res) {
     }
     )
 }
+
+next();
  
 })
 
