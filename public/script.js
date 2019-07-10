@@ -207,19 +207,22 @@ $('.save--note').on('click', function(){
     .find('li[style*="background-color: rgb(212, 236, 244)"]')
     
     var note = ele.find('input').val()
-    // var folder = ele.parent().prev().find('input').val()
+    // need to send folder-name too!!
+    // .parent() => go to ul class=notes
+    // .prev() => go to the li class=folder ..
+    var folder = ele.parent().prev().find('input').val()
  
     // text=$(this).parent().find('textarea').val() //undefined
     text=$('textarea').val()
     console.log(text)
-    console.log(note)
+    console.log(note, folder)
 
     $.ajax({
         url:'notes/update',
         type:'POST',
         dataType:'json',
         contentType:"application/json; charset=utf-8",
-        data: JSON.stringify({note:note, content: text}),
+        data: JSON.stringify({note:note, content: text, folder:folder}),
         success:function(result){
             // why isn't it going into success even after saving in db?
             console.log(result, "success of /update")
