@@ -37,16 +37,16 @@ app.use(bodyParser.json());
 app.use(session({secret:"dfsdfa"}));
 
 // custom mw shud have next()
-app.use(function(req, res, next){
+app.get('/', function(req, res, next){
     if (req.session.user) {
         res.redirect('/notes')
     }
-
-    else {
-        app.use(express.static('./public'));
-    }
     next()
   });
+
+app.get('/', function(req, res){
+    app.use('/', express.static('./public'));
+});
 
 
 app.use(bodyParser.urlencoded({ 
@@ -80,20 +80,20 @@ app.post('/login', function (req, res) {
         "username":username,
         "password":password
     }
+    console.log("checking if user exists or not ...")
     req.app.locals.db.collection('users').findOne({
         username: req.body.username,
         password: req.body.password
     }, function (err, users) {
-        if(users) {
-            req.session.user = true;
-            req.session.name = username;
-            console.log(" exist");
-            res.redirect('/notes');
-        }
-        else {
+        if(err){
             console.log(" no exist");
             res.redirect('/index.html');
         }
+
+        req.session.user = true;
+        req.session.name = username;
+        console.log(" exist");
+        res.redirect('/notes');
     });
 })
 
