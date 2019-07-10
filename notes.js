@@ -48,10 +48,11 @@ router.post('/update', function(req, res){
     var user = "abc2" 
     var note = req.body.note
     var content = req.body.content
+    var foldername = req.body.folder
     // text=content in $set - bcoz we search using user-id and note
     // update() or updateOne()?
     console.log(note, content)
-    req.app.locals.db.collection('notes').updateOne({user_id:user, note:note}, {$set:{text:content}}, function(err, data){
+    req.app.locals.db.collection('notes').updateOne({user_id:user, folder:foldername, note:note}, {$set:{text:content}}, function(err, data){
         if(err) throw err
         console.log("noted updated in db!", data)
         res.json({})

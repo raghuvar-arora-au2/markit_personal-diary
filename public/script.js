@@ -121,7 +121,9 @@ $('.delete').on('click', function(){
         element.next().remove()
         // delete the folder
         element.remove()
-        url = 'notes/delete-a-folder'
+        // var url vs url
+        // url= ... sets it as a global var ..
+        var url = 'notes/delete-a-folder'
         var folder = element.find('input').val()
         console.log(folder, "deleting this folder")
         content = {folder:folder}
@@ -131,7 +133,7 @@ $('.delete').on('click', function(){
         var folder = element.parent().prev().find('input').val()
         var note = element.find('input').val()
         element.remove()
-        url = 'notes/delete-a-note'
+        var url = 'notes/delete-a-note'
         console.log(note, folder, "deleting note under this folder")
         content = {note:note, folder:folder}
     }
@@ -207,19 +209,22 @@ $('.save--note').on('click', function(){
     .find('li[style*="background-color: rgb(212, 236, 244)"]')
     
     var note = ele.find('input').val()
-    // var folder = ele.parent().prev().find('input').val()
+    // need to send folder-name too!!
+    // .parent() => go to ul class=notes
+    // .prev() => go to the li class=folder ..
+    var folder = ele.parent().prev().find('input').val()
  
     // text=$(this).parent().find('textarea').val() //undefined
     text=$('textarea').val()
     console.log(text)
-    console.log(note)
+    console.log(note, folder)
 
     $.ajax({
         url:'notes/update',
         type:'POST',
         dataType:'json',
         contentType:"application/json; charset=utf-8",
-        data: JSON.stringify({note:note, content: text}),
+        data: JSON.stringify({note:note, content: text, folder:folder}),
         success:function(result){
             // why isn't it going into success even after saving in db?
             console.log(result, "success of /update")
