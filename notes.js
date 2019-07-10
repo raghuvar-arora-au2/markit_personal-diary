@@ -36,11 +36,13 @@ router.get('/', function(req, res) {
 ]).toArray(function(err, data){
         console.log("rendering the notes page!")
         res.render('markdown', {fs:data, username:user})
-        return;
+        // return;
     }
     )
 }
-res.redirect('/index.html')
+else
+    // res.redirect was throwing error - headers already sent
+    app.use(express.static('./public'));
 
 })
 

@@ -87,7 +87,7 @@ app.post('/login', function (req, res) {
         if(users) {
             req.session.user = true;
             req.session.name = username;
-            console.log(" exit");
+            console.log(" exist");
             res.redirect('/notes');
         }
         else {
