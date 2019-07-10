@@ -41,7 +41,7 @@ router.get('/', function(req, res) {
 }
 
 else{
-    res.send("login to view this page")
+    res.redirect('/index.html')
 
 }
 
