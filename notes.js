@@ -42,7 +42,7 @@ router.get('/', function(req, res) {
 }
 else
     // res.redirect was throwing error - headers already sent
-    app.use(express.static('./public'));
+    router.use(express.static('./public'));
 
 })
 
