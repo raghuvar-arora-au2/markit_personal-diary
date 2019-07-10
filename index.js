@@ -44,9 +44,9 @@ app.get('/', function(req, res, next){
     next()
   });
 
-app.get('/', function(req, res){
-    app.use('/', express.static('./public'));
-});
+// app.get('/', function(req, res){
+app.use('/', express.static('./public'));
+// });
 
 
 app.use(bodyParser.urlencoded({ 
