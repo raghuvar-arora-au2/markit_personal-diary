@@ -41,7 +41,7 @@ function notes(req, res) {
     }
     )
 }
-res.redirect('/index.html')
+return res.redirect('/index.html')
 
 }
 
