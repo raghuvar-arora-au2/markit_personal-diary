@@ -84,7 +84,7 @@ router.post('/edit-folder-name', function(req, res){
     var user = req.session.name
     var new_name = req.body.new_name
     var old_name = req.body.old_name          
-    req.app.locals.db.collection('notes').updateOne({"user_id": user, "folder": old_name}, {$set:{"folder":new_name}}, function(err, data){
+    req.app.locals.db.collection('notes').updateMany({"user_id": user, "folder": old_name}, {$set:{"folder":new_name}}, function(err, data){
         if(err) throw err
         console.log("updated folder name in db", "from -", old_name, "to -", new_name)
         res.json({})
