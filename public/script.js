@@ -121,7 +121,9 @@ $('.delete').on('click', function(){
         element.next().remove()
         // delete the folder
         element.remove()
-        url = 'notes/delete-a-folder'
+        // var url vs url
+        // url= ... sets it as a global var ..
+        var url = 'notes/delete-a-folder'
         var folder = element.find('input').val()
         console.log(folder, "deleting this folder")
         content = {folder:folder}
@@ -131,7 +133,7 @@ $('.delete').on('click', function(){
         var folder = element.parent().prev().find('input').val()
         var note = element.find('input').val()
         element.remove()
-        url = 'notes/delete-a-note'
+        var url = 'notes/delete-a-note'
         console.log(note, folder, "deleting note under this folder")
         content = {note:note, folder:folder}
     }
