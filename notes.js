@@ -43,7 +43,9 @@ router.get('/', function(req, res, next) {
     )
 }
 
-next();
+else
+
+    next();
  
 })
 
