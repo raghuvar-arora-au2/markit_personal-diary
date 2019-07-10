@@ -181,7 +181,8 @@ $(document).on('keypress', '.files', function(e){
         }
         else if($(this).parent().hasClass('note')){
             var url='notes/edit-note-name'
-            var folder_for_note_deletion = $(this).parent().prev().find('input').val()
+            var folder_for_note_deletion = $(this).parent().parent().prev().find('input').val()
+            console.log(folder_for_note_deletion)
             editName(url, old_name, new_name, folder_for_note_deletion)
         }
         else{}
