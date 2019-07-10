@@ -5,7 +5,7 @@ var router = express.Router()
 var showdown = require('showdown');
 converter = new showdown.Converter();
 
-router.get('/', function(req, res) {
+router.use('/', function(req, res) {
     if(req.session.user){
     var user = req.session.name
     // var folders = []
