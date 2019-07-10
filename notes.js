@@ -101,7 +101,8 @@ router.post('/edit-note-name', function(req, res){
     var user = req.session.name
     var new_name = req.body.new_name
     var old_name = req.body.old_name
-    req.app.locals.db.collection('notes').find({"user_id": user, "note": old_name})
+    var folder = req.body.folder
+    req.app.locals.db.collection('notes').find({"user_id": user, "note": old_name, "folder": folder})
         .forEach(function(e, i){
             e.note = new_name,
             req.app.locals.db.collection('notes').save(e)

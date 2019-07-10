@@ -176,12 +176,13 @@ $(document).on('keypress', '.files', function(e){
         new_name = $(this).val() 
         
         if($(this).parent().hasClass('folder') && $(this).parent().next().children().length>0){
-            url='notes/edit-folder-name'
+            var url='notes/edit-folder-name'
             editName(url, old_name, new_name)
         }
         else if($(this).parent().hasClass('note')){
-            url='notes/edit-note-name'
-            editName(url, old_name, new_name)
+            var url='notes/edit-note-name'
+            var folder_for_note_deletion = $(this).parent().prev().find('input').val()
+            editName(url, old_name, new_name, folder_for_note_deletion)
         }
         else{}
         
@@ -190,13 +191,13 @@ $(document).on('keypress', '.files', function(e){
 })
 
 
-function editName(url, old_name, new_name){
+function editName(url, old_name, new_name, folder_for_note_deletion){
     $.ajax({
         url:url,
         type:'POST',
         dataType:'json',
         contentType:"application/json; charset=utf-8",
-        data: JSON.stringify({new_name:new_name, old_name:old_name}),
+        data: JSON.stringify({new_name:new_name, old_name:old_name, folder:folder_for_note_deletion}),
         success:function(){}
     })
 }
