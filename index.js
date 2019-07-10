@@ -3,10 +3,8 @@ if(process.env.MY_DB)
 else
     var url = "mongodb://127.0.0.1:27017/"
 
-// var url = "mongodb://127.0.0.1:27017/"
-
 var express = require('express');
-var expressSession = require('express-session');
+var session = require('express-session');
 const bodyParser = require('body-parser');
 var notes = require('./notes.js') 
 var hbs = require('express-handlebars');
@@ -29,7 +27,8 @@ app.use( "*", cloudinaryConfig );
 
 mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
     if(err) throw err    
-    app.locals.db = client.db('markit')   
+    app.locals.db = client.db('markit')
+    app.locals.db.createCollection('users')   
     console.log("database connected!")   
 })
 
@@ -37,16 +36,59 @@ app.use(bodyParser.json());
 
 app.use(express.static('./public'));
 
-app.post('/',function(req,res){
-    res.reindirect('index.html');
+app.use(bodyParser.urlencoded({ 
+    extended: true
+})); 
+
+app.use(session({secret:"dfsdfa"}));
+
+app.post('/signup' ,function(req,res){
+    var name = req.body.name;
+    var username = req.body.username;
+	var email = req.body.email;
+    var password = req.body.password;				
+
+	var data = {
+        "name":name,
+        "username":username,
+		"email":email,
+        "password": password
+    }
+    req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
+    if(err) throw err
+    console.log("record is successfully registered");
+    });
+    res.redirect('/index.html');
 })
 
+app.post('/login', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    var data = {
+        "username":username,
+        "password":password
+    }
+    req.app.locals.db.collection('users').findOne({
+        username: req.body.username,
+        password: req.body.password
+    }, function (err, users) {
+        if(users) {
+            req.session.user = true;
+            req.session.name = username;
+            console.log(" exit");
+            res.redirect('/notes');
+        }
+        else {
+            console.log(" no exist");
+            res.redirect('/index.html');
+        }
+    });
+})
 
-// app.get('/logout', function (req, res) {
-//    req.session.user = null;
-//    req.session.destroy();
-// });
-
+app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/index.html');
+});
 
 app.engine('hbs', hbs({extname:'hbs'}))
 app.set('view engine', 'hbs');
@@ -58,7 +100,6 @@ app.use('/notes', notes)
 // heroku app will run on '/'?
 // app.get('/', function(req, res){
 //     res.redirect('/notes')
-// })
 
 app.delete("/delete", multerUploads,(req,res)=>{
     let id=req.body.id;
@@ -93,10 +134,10 @@ app.post( "/upload", multerUploads, ( req, res ) => {
             } ) );
         }
     }
-} );
+});
 
 
 
 
 app.listen(process.env.PORT || 3000);
-// app.listen(3000)
+//app.listen(3000);
