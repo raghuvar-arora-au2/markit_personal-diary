@@ -43,7 +43,7 @@ function notes(req, res) {
 }
 res.redirect('/index.html')
 
-})
+}
 
 router.post('/text-to-html', function(req, res){  
     text = req.body.content;
