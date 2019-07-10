@@ -81,15 +81,19 @@ router.post('/update', function(req, res){
 })
 
 router.post('/edit-folder-name', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var new_name = req.body.new_name
     var old_name = req.body.old_name          
-    req.app.locals.db.collection('notes').find({"user_id": user, "folder": old_name})
-            .forEach(function(e, i){
-                e.folder = new_name,
-                req.app.locals.db.collection('notes').save(e)
-                console.log("updated folder name in db", "from -", old_name, "to -", new_name)
-        })
+    req.app.locals.db.collection('notes').updateOne({"user_id": user, "folder": old_name}, {$set:{"folder":new_name}}, function(err, data){
+        if(err) throw err
+        console.log("updated folder name in db", "from -", old_name, "to -", new_name)
+        res.json({})
+    })
+        //     .forEach(function(e, i){
+        //         e.folder = new_name,
+        //         req.app.locals.db.collection('notes').save(e)
+        //         console.log("updated folder name in db", "from -", old_name, "to -", new_name)
+        // })
     })
 
 
