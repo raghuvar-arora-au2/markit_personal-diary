@@ -5,9 +5,12 @@ var router = express.Router()
 var showdown = require('showdown');
 converter = new showdown.Converter();
 
-router.get('/', function(req, res) {
-    var user = "abc2" // req.session.name
-    // var folders = []  
+// https://stackoverflow.com/questions/39000904/what-happens-if-you-overload-the-same-route-with-express-js
+router.get('/', function(req, res, next) {
+    if(req.session.user){
+    var user = req.session.name
+    // var folders = []
+    console.log(user)  
     var notes = [] 
 
     // if foldername is null, replace it with "unknown"
@@ -32,11 +35,28 @@ router.get('/', function(req, res) {
             }
         }
 ]).toArray(function(err, data){
-        console.log(data)
-        res.render('markdown', {fs:data, username:user}) 
+        console.log("rendering the notes page!")
+        res.render('markdown', {fs:data, username:user})
+        // next()
+        // return;
     }
     )
+}
+
+else
+
+    next();
+ 
 })
+
+
+router.get('/', function(req, res){
+    // if(!req.session.user){
+    // res.redirect was throwing error - headers already sent
+    res.redirect('/index.html')
+    // }
+})
+
 
 router.post('/text-to-html', function(req, res){  
     text = req.body.content;
@@ -45,7 +65,7 @@ router.post('/text-to-html', function(req, res){
 })
 
 router.post('/update', function(req, res){
-    var user = "abc2" 
+    var user = req.session.name 
     var note = req.body.note
     var content = req.body.content
     var foldername = req.body.folder
@@ -61,23 +81,28 @@ router.post('/update', function(req, res){
 })
 
 router.post('/edit-folder-name', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var new_name = req.body.new_name
     var old_name = req.body.old_name          
-    req.app.locals.db.collection('notes').find({"user_id": user, "folder": old_name})
-            .forEach(function(e, i){
-                e.folder = new_name,
-                req.app.locals.db.collection('notes').save(e)
-                console.log("updated folder name in db", "from -", old_name, "to -", new_name)
-        })
+    req.app.locals.db.collection('notes').updateMany({"user_id": user, "folder": old_name}, {$set:{"folder":new_name}}, function(err, data){
+        if(err) throw err
+        console.log("updated folder name in db", "from -", old_name, "to -", new_name)
+        res.json({})
+    })
+        //     .forEach(function(e, i){
+        //         e.folder = new_name,
+        //         req.app.locals.db.collection('notes').save(e)
+        //         console.log("updated folder name in db", "from -", old_name, "to -", new_name)
+        // })
     })
 
 
 router.post('/edit-note-name', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var new_name = req.body.new_name
     var old_name = req.body.old_name
-    req.app.locals.db.collection('notes').find({"user_id": user, "note": old_name})
+    var folder = req.body.folder
+    req.app.locals.db.collection('notes').find({"user_id": user, "note": old_name, "folder": folder})
         .forEach(function(e, i){
             e.note = new_name,
             req.app.locals.db.collection('notes').save(e)
@@ -87,7 +112,7 @@ router.post('/edit-note-name', function(req, res){
 
 
 router.get('/read', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var folder = req.query.folder
     var note = req.query.note
     console.log("{ user_id:",user, ", note:",note, " ,folder:", folder, " }")
@@ -111,7 +136,7 @@ router.get('/read', function(req, res){
 
 
 router.post('/delete-a-note', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var note = req.body.note
     var folder = req.body.folder
     req.app.locals.db.collection('notes').deleteOne({"user_id":user, "note":note, folder:folder}, function(err, result){
@@ -122,7 +147,7 @@ router.post('/delete-a-note', function(req, res){
     })     
 
 router.post('/delete-a-folder', function(req, res){
-    var user = "abc2"
+    var user = req.session.name
     var folder = req.body.folder
     req.app.locals.db.collection('notes').deleteOne({"user_id":user, "folder":folder}, function(err, result){
             if(err) throw err
