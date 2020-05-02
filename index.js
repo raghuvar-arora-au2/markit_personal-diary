@@ -1,17 +1,21 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
+/* eslint-disable semi */
 if(process.env.MY_DB)
-    var url = process.env.MY_DB
+	var url = process.env.MY_DB
 else
-    var url = "mongodb://127.0.0.1:27017/"
+	var url = "mongodb://raghuvar:qwert123@ds243418.mlab.com:43418/sample";
 
-var express = require('express');
-var session = require('express-session');
-const bodyParser = require('body-parser');
-var notes = require('./notes.js') 
-var hbs = require('express-handlebars');
-var mongoClient = require('mongodb').MongoClient
+var express = require("express");
+var session = require("express-session");
+const bodyParser = require("body-parser");
+var notes = require("./notes.js") 
+var hbs = require("express-handlebars");
+var mongoClient = require("mongodb").MongoClient
 
 var app = express();
 
+// eslint-disable-next-line no-unused-vars
 const multipart = require( "connect-multiparty" );
 
 const cloudinary = require( "cloudinary" );
@@ -26,10 +30,10 @@ const { uploader, cloudinaryConfig } = require( "./config/cloudinaryConfig" );
 app.use( "*", cloudinaryConfig );
 
 mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
-    if(err) throw err    
-    app.locals.db = client.db('markit')
-    app.locals.db.createCollection('users')   
-    console.log("database connected!")   
+	if(err) throw err    
+	app.locals.db = client.db("sample")
+	app.locals.db.createCollection("users")   
+	console.log("database connected!")   
 })
 
 app.use(bodyParser.json());
@@ -37,120 +41,125 @@ app.use(bodyParser.json());
 app.use(session({secret:"dfsdfa"}));
 
 // custom mw shud have next()
-app.get('/', function(req, res, next){
-    if (req.session.user) {
-        res.redirect('/notes')
-    }
-    else
-        next()
-  });
+app.get("/", function(req, res, next){
+	if (req.session.user) {
+		res.redirect("/notes")
+	}
+	else
+		next()
+});
 
 // app.get('/', function(req, res){
-app.use('/', express.static('./public'));
+app.use("/", express.static("./public"));
 // });
 
 
 app.use(bodyParser.urlencoded({ 
-    extended: true
+	extended: true
 })); 
 
 
-app.post('/signup' ,function(req,res){
-    var name = req.body.name;
-    var username = req.body.username;
+app.post("/signup" ,function(req,res){
+	var name = req.body.name;
+	var username = req.body.username;
 	var email = req.body.email;
-    var password = req.body.password;				
+	var password = req.body.password;				
 
 	var data = {
-        "name":name,
-        "username":username,
+		"name":name,
+		"username":username,
 		"email":email,
-        "password": password
-    }
-    req.app.locals.db.collection('users').insertOne(data, function(err, collection) {
-    if(err) throw err
-    console.log("record is successfully registered");
-    });
-    res.redirect('/index.html');
+		"password": password
+	}
+	req.app.locals.db.collection("users").insertOne(data, function(err, collection) {
+		if(err){
+			console.log("HERE");
+			throw err;
+		}
+		console.log("record is successfully registered");
+	});
+	res.redirect("/index.html");
 })
 
-app.post('/login', function (req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var data = {
-        "username":username,
-        "password":password
-    }
-    console.log("checking if user exists or not ...")
-    req.app.locals.db.collection('users').findOne({
-        username: req.body.username,
-        password: req.body.password
-    }, function (err, users) {
-        if(err){
-            console.log(" no exist");
-            res.redirect('/index.html');
-        }
+app.post("/login", function (req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+	var data = {
+		"username":username,
+		"password":password
+	}
+	console.log("checking if user exists or not ...")
+	req.app.locals.db.collection("users").findOne({
+		username: req.body.username,
+		password: req.body.password
+	}, function (err, users) {
+		if(err){
+			console.log(" no exist");
+			res.redirect("/index.html");
+		}
 
-        req.session.user = true;
-        req.session.name = username;
-        console.log(" exist");
-        res.redirect('/notes');
-    });
+		req.session.user = true;
+		req.session.name = username;
+		console.log(" exist");
+		res.redirect("/notes");
+	});
 })
 
-app.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect('/index.html');
+app.get("/logout", function (req, res) {
+	req.session.destroy();
+	res.redirect("/index.html");
 });
 
-app.engine('hbs', hbs({extname:'hbs'}))
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views')
+app.engine("hbs", hbs({extname:"hbs"}))
+app.set("view engine", "hbs");
+app.set("views", __dirname + "/views")
 
 
-app.use('/notes', notes)
+app.use("/notes", notes)
 
 // heroku app will run on '/'?
 // app.get('/', function(req, res){
 //     res.redirect('/notes')
 
 app.delete("/delete", multerUploads,(req,res)=>{
-    let id=req.body.id;
-    let path=req.body.path;
-    uploader.destroy(path+"/"+id).then(result=>{
-        console.log(result);
-        res.send(200);
-    });
+	let id=req.body.id;
+	let path=req.body.path;
+	uploader.destroy(path+"/"+id).then(result=>{
+		console.log(result);
+		res.send(200);
+	});
 })
 
 app.post( "/upload", multerUploads, ( req, res ) => {
-    if ( 1 ) {
-        console.log(req.file);
-        if ( req.file ) {
-            console.log("dfsdfsd");
-            let path=req.body.path
-            const file = dataUri( req ).content;
-            return uploader.upload( file, () => { }, { resource_type: "auto", folder: path } ).then( ( result ) => {
-                const image = result.url;
-                console.log(image);
-                return res.status( 200 ).json( {
-                    messge: "Your image has been uploded successfully to cloudinary",
-                    data: {
-                        result,
-                    },
-                } );
-            } ).catch( err => res.status( 400 ).json( {
-                messge: "someting went wrong while processing your request",
-                data: {
-                    err,
-                },
-            } ) );
-        }
-    }
+	if ( 1 ) {
+		console.log(req.file);
+		if ( req.file ) {
+			console.log("dfsdfsd");
+			let path=req.body.path
+			const file = dataUri( req ).content;
+			return uploader.upload( file, () => { }, { resource_type: "auto", folder: path } ).then( ( result ) => {
+				const image = result.url;
+				console.log(image);
+				return res.status( 200 ).json( {
+					messge: "Your image has been uploded successfully to cloudinary",
+					data: {
+						result,
+					},
+				} );
+			} ).catch( err => res.status( 400 ).json( {
+				messge: "someting went wrong while processing your request",
+				data: {
+					err,
+				},
+			} ) );
+		}
+	}
 });
 
 
 
 
-app.listen(process.env.PORT || 3000);
+app.listen(3000, ()=>{
+	console.log("yellow");
+});
 //app.listen(3000);
