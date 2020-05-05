@@ -92,16 +92,27 @@ app.post("/login", function (req, res) {
 	req.app.locals.db.collection("users").findOne({
 		username: req.body.username,
 		password: req.body.password
+		
 	}, function (err, users) {
+		console.log("pass:"+users)
 		if(err){
+			// console.log(" no exist");
+			res.redirect("/index.html");
+			console.log("ERROR");
+			throw err;
+			
+		}
+		else if(users!=null){
+			req.session.user = true;
+			req.session.name = username;
+			console.log(" exist");
+			res.redirect("/notes");
+		}
+		else{
 			console.log(" no exist");
+			// throw err;
 			res.redirect("/index.html");
 		}
-
-		req.session.user = true;
-		req.session.name = username;
-		console.log(" exist");
-		res.redirect("/notes");
 	});
 })
 
