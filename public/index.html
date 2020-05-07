@@ -1,92 +1,92 @@
 <!-- <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>personal diary</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet" type="text/css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>personal diary</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-          <a class="navbar-brand" href="#"  style="color:purple"><b>markIT</b></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button> 
-          <form class="form-inline my-2 my-lg-0" action='/login' method='POST' style = "margin-left:40%">
-              <div class="col-md-5"> <input type="text" placeholder="Username" name="username"> </div>
-              <div class="col-md-5"> <input type="text" placeholder="Password" name="password"> </div>
-            
-              <button class="btn  my-2 my-sm-0" style="background-color:purple;color:white" type="submit">Login</button>
-          </form>
-          
-          <form class="form-inline"  style="margin-right:2%"> 
-            <button class="btn " style="background-color:purple" type="submit"><a href= "password.html" style="color:white">Reset Password</a></button>
-          </form>
-          
-        </nav>
-    <div class=".signup-form" style ="margin-left:65%; margin-right:6%;margin-top:5%">
-      <form class=".signup-form" action="/signup" method="POST" >
-          <div class="form-group">
-        <div class="row">
-          <div class="col-md-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
-          <div class="col-md-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
-        </div>        	
-          </div>
-          <div class="form-group">
-              <input type="text"  class = "form-control" name="username" placeholder="Username" required="required">
-            </div>
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
-          </div>
-      <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-          </div>
-      <div class="form-group">
-              <button type="submit" class="btn  btn-lg btn-block" style="background-color:purple;color:white">signup</button>
-          </div>
-      </form>
-      </div>
-      <div class="col-md-5 signup-return" style="display:none;">
-          <h3>
-             You have successfully registered!
-          </h3>
-       </div>
-            <script>
-                $(document).ready(function() {
-                $("#signup").click(function() {
-                var name = $("#name").val();
-                var username = $("#username").val();
-                var email = $("#email").val();
-                var password = $("#password").val();
-                if (name == ''|| username == '' || email == '' || password == '') {
-                alert("Please fill all fields...!!!!!!");
-                } else if ((password.length) < 8) {
-                alert("Password should atleast 8 character in length...!!!!!!");
-                } else if (!(password).match(cmpassword)) {
-                alert("Your passwords don't match. Try again?");
-                } else {
-                $.post("signup", {
-                name:name,
-                username: username,
-                email: email,
-                password: password
-                }, function(data) {
-                if (data == 'You have Successfully Registered.....') {
-                  console.log('You have Successfully Registered.....');
-                $("form")[0].reset();
-                }
-                
-                });
-                }
-                });
-                });
-            </script>    
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-        <script>login.js</script>
+	  <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+		  <a class="navbar-brand" href="#"  style="color:purple"><b>markIT</b></a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button> 
+		  <form class="form-inline my-2 my-lg-0" action='/login' method='POST' style = "margin-left:40%">
+			  <div class="col-md-5"> <input type="text" placeholder="Username" name="username"> </div>
+			  <div class="col-md-5"> <input type="text" placeholder="Password" name="password"> </div>
+			
+			  <button class="btn  my-2 my-sm-0" style="background-color:purple;color:white" type="submit">Login</button>
+		  </form>
+		  
+		  <form class="form-inline"  style="margin-right:2%"> 
+			<button class="btn " style="background-color:purple" type="submit"><a href= "password.html" style="color:white">Reset Password</a></button>
+		  </form>
+		  
+		</nav>
+	<div class=".signup-form" style ="margin-left:65%; margin-right:6%;margin-top:5%">
+	  <form class=".signup-form" action="/signup" method="POST" >
+		  <div class="form-group">
+		<div class="row">
+		  <div class="col-md-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
+		  <div class="col-md-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
+		</div>        	
+		  </div>
+		  <div class="form-group">
+			  <input type="text"  class = "form-control" name="username" placeholder="Username" required="required">
+			</div>
+		  <div class="form-group">
+			<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+		  </div>
+	  <div class="form-group">
+			  <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+		  </div>
+	  <div class="form-group">
+			  <button type="submit" class="btn  btn-lg btn-block" style="background-color:purple;color:white">signup</button>
+		  </div>
+	  </form>
+	  </div>
+	  <div class="col-md-5 signup-return" style="display:none;">
+		  <h3>
+			 You have successfully registered!
+		  </h3>
+	   </div>
+			<script>
+				$(document).ready(function() {
+				$("#signup").click(function() {
+				var name = $("#name").val();
+				var username = $("#username").val();
+				var email = $("#email").val();
+				var password = $("#password").val();
+				if (name == ''|| username == '' || email == '' || password == '') {
+				alert("Please fill all fields...!!!!!!");
+				} else if ((password.length) < 8) {
+				alert("Password should atleast 8 character in length...!!!!!!");
+				} else if (!(password).match(cmpassword)) {
+				alert("Your passwords don't match. Try again?");
+				} else {
+				$.post("signup", {
+				name:name,
+				username: username,
+				email: email,
+				password: password
+				}, function(data) {
+				if (data == 'You have Successfully Registered.....') {
+				  console.log('You have Successfully Registered.....');
+				$("form")[0].reset();
+				}
+				
+				});
+				}
+				});
+				});
+			</script>    
+		<script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+		<script>login.js</script>
   </body>
 </html> -->
 
@@ -110,224 +110,224 @@
   <!------ Include the above in your HEAD tag ---------->
 
   <header>
-    <div class="container">
-      <form action='/login' method='POST' >
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="logo"><b>markIT</b></div>
-        </div>
-        <div class="col-sm-6 hidden-xs">
-          <div class="row">
-            <div class="col-sm-5">
-              <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="Email Address">
-                <div class="login-bottom-text checkbox hidden-sm">
-                  <label>
-                    <input type="checkbox" id="">
-                    Keep me sign in
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-5">
-              <div class="form-group">
-                <input type="password"  class="form-control" name="password" placeholder="Password">
-                <div class="login-bottom-text hidden-sm"> Forgot your password? </div>
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="form-group">
-                <!-- <input type="button" value="login" class="btn btn-default btn-header-login"> -->
-                <button class="btn btn-default btn-header-login  my-2 my-sm-0" style="background-color:purple;color:white" type="submit">Login</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-    </div>
+	<div class="container">
+	  <form action='/login' method='POST' >
+	  <div class="row">
+		<div class="col-sm-6">
+		  <div class="logo"><b>markIT</b></div>
+		</div>
+		<div class="col-sm-6 hidden-xs">
+		  <div class="row">
+			<div class="col-sm-5">
+			  <div class="form-group">
+				<input type="text" class="form-control" name="username" placeholder="Email Address">
+				<div class="login-bottom-text checkbox hidden-sm">
+				  <label>
+					<input type="checkbox" id="">
+					Keep me sign in
+				  </label>
+				</div>
+			  </div>
+			</div>
+			<div class="col-sm-5">
+			  <div class="form-group">
+				<input type="password"  class="form-control" name="password" placeholder="Password">
+				<div class="login-bottom-text hidden-sm"> Forgot your password? </div>
+			  </div>
+			</div>
+			<div class="col-sm-2">
+			  <div class="form-group">
+				<!-- <input type="button" value="login" class="btn btn-default btn-header-login"> -->
+				<button class="btn btn-default btn-header-login  my-2 my-sm-0" style="background-color:purple;color:white" type="submit">Login</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</form>
+	</div>
   </header>
   <article class="container">
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="login-main">
-          <h4><i class="fa fa-dashboard"></i> Gorgeous color and design</h4>
-          <span>Some sample description text about the template goes here</span>
+	<div class="row">
+	  <div class="col-sm-8">
+		<div class="login-main">
+		  <h4><i class="fa fa-dashboard"></i> Gorgeous color and design</h4>
+		  <span>Some sample description text about the template goes here</span>
 
-          <h4> <i class="fa fa-money"></i> 100% fully responsive </h4>
-          <span>Another description text about the template goes here</span>
+		  <h4> <i class="fa fa-money"></i> 100% fully responsive </h4>
+		  <span>Another description text about the template goes here</span>
 
-          <h4><i class="fa fa-mobile-phone"></i> Competible with all browers and mobile devices</h4>
-          <span>Yet another sample description text can be placed in one line</span>
+		  <h4><i class="fa fa-mobile-phone"></i> Competible with all browers and mobile devices</h4>
+		  <span>Yet another sample description text can be placed in one line</span>
 
-          <h4> <i class="fa fa-trophy"></i> Easy to use and custmize with mobile friendly and responsive</h4>
-          <span>Your last description text about your startup or business</span>
-        </div>
-      </div>
-      <form class=".signup-form" action="/signup" method="POST" >
-      <div class="col-sm-4">
-        <div class="">
+		  <h4> <i class="fa fa-trophy"></i> Easy to use and custmize with mobile friendly and responsive</h4>
+		  <span>Your last description text about your startup or business</span>
+		</div>
+	  </div>
+	  <form class=".signup-form" action="/signup" method="POST" >
+	  <div class="col-sm-4">
+		<div class="">
 
-          <h3><i class="fa fa-shield"></i> Register now</h3>
-          <hr>
-          <div class="form-group">
-            <label class="control-label" for="">Username</label>
-            <input type="text" name="username" class="form-control" placeholder="Username" required="required">
-          </div>
+		  <h3><i class="fa fa-shield"></i> Register now</h3>
+		  <hr>
+		  <div class="form-group">
+			<label class="control-label" for="">Username</label>
+			<input type="text" name="username" class="form-control" placeholder="Username" required="required">
+		  </div>
 
-          <div class="form-group">
-              <label class="control-label" for="">Email</label>
-              <input type="text" name="email" class="form-control" placeholder="Email" required="required">
-            </div>
+		  <div class="form-group">
+			  <label class="control-label" for="">Email</label>
+			  <input type="text" name="email" class="form-control" placeholder="Email" required="required">
+			</div>
 
-          <div class="form-group">
-            <label class="control-label" for="">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-          </div>
+		  <div class="form-group">
+			<label class="control-label" for="">Password</label>
+			<input type="password" class="form-control" name="password" placeholder="Password" required="required">
+		  </div>
 
-          
+		  
 
-          <div class="">
-            <label>Birthday</label>
-            <div class="form-group">
-              <div class="col-sm-4 multibox">
-                <select class="form-control">
-                  <option>Day</option>
-                </select>
-              </div>
-              <div class="col-sm-4 multibox">
-                <select class="form-control">
-                  <option>Month</option>
-                </select>
-              </div>
-              <div class="col-sm-4 multibox">
-                <select class="form-control">
-                  <option>Year</option>
-                </select>
-              </div>
+		  <div class="">
+			<label>Birthday</label>
+			<div class="form-group">
+			  <div class="col-sm-4 multibox">
+				<select class="form-control">
+				  <option>Day</option>
+				</select>
+			  </div>
+			  <div class="col-sm-4 multibox">
+				<select class="form-control">
+				  <option>Month</option>
+				</select>
+			  </div>
+			  <div class="col-sm-4 multibox">
+				<select class="form-control">
+				  <option>Year</option>
+				</select>
+			  </div>
 
-            </div>
-          </div>
+			</div>
+		  </div>
 
-          <small>
-           
-          </small>
-          <div style="height:10px;"></div>
-          <div class="form-group">
-            <label class="control-label" for=""></label>
-            <input type="submit" style="background-color:rgb(110, 52, 110);color:white" class="btn ">
-          </div>
-          
-          </form>
-          <button class="loginBtn loginBtn--facebook">
-              Login with Facebook
-            </button>
-        </div>
-      </div>
-    </div>
-    </div>
+		  <small>
+		   
+		  </small>
+		  <div style="height:10px;"></div>
+		  <div class="form-group">
+			<label class="control-label" for=""></label>
+			<input type="submit" style="background-color:rgb(110, 52, 110);color:white" class="btn ">
+		  </div>
+		  
+		  </form>
+		  <button class="loginBtn loginBtn--facebook">
+			  Login with Facebook
+			</button>
+		</div>
+	  </div>
+	</div>
+	</div>
   </article>
   <!-- <footer class="container">
-    <hr>
-    <div class="footer-options">
-      <ul>
-        <li><a href="#">Mobile</li>
-        <li><a href="#">Find Friends</li>
-        <li><a href="#">Badges</li>
-        <li><a href="#">People</li>
-        <li><a href="#">Pages</li>
-        <li><a href="#">Places</a></li>
-        <li><a href="#">Games</a></li>
-        <li><a href="#">Locations</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-    </div>
-    <div style="clear:both"></div>
-    <small class="copyrights"> © Copyrights reserved 2014</small>
+	<hr>
+	<div class="footer-options">
+	  <ul>
+		<li><a href="#">Mobile</li>
+		<li><a href="#">Find Friends</li>
+		<li><a href="#">Badges</li>
+		<li><a href="#">People</li>
+		<li><a href="#">Pages</li>
+		<li><a href="#">Places</a></li>
+		<li><a href="#">Games</a></li>
+		<li><a href="#">Locations</a></li>
+		<li><a href="#">About</a></li>
+	  </ul>
+	</div>
+	<div style="clear:both"></div>
+	<small class="copyrights"> © Copyrights reserved 2014</small>
   </footer> -->
   <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-    }
+	body {
+	  font-family: 'Open Sans', sans-serif;
+	}
 
-    .logo i {
-      font-size: 31px;
-      margin-right: 4px;
-      word-spacing: 14px;
-    }
+	.logo i {
+	  font-size: 31px;
+	  margin-right: 4px;
+	  word-spacing: 14px;
+	}
 
-    .logo {
-      font: bolder;
-      color: white;
-      margin: 0;
-      font-size: 30px;
-      padding: 4px 0;
-      padding-bottom: 15px;
+	.logo {
+	  font: bolder;
+	  color: white;
+	  margin: 0;
+	  font-size: 30px;
+	  padding: 4px 0;
+	  padding-bottom: 15px;
 
-    }
+	}
 
-    .login-bottom-text {
-      margin-top: 0px;
-      margin-bottom: 0px;
-      font-size: 12px;
-      color: white;
-      line-height: 19px;
-    }
+	.login-bottom-text {
+	  margin-top: 0px;
+	  margin-bottom: 0px;
+	  font-size: 12px;
+	  color: white;
+	  line-height: 19px;
+	}
 
-    header {
-      background: #7A4AAA;
-      padding-top: 20px;
-    }
+	header {
+	  background: #7A4AAA;
+	  padding-top: 20px;
+	}
 
-    header .form-group {
-      margin-bottom: 0px;
-    }
+	header .form-group {
+	  margin-bottom: 0px;
+	}
 
-    header .btn-header-login {
-      margin-bottom: 15px;
-    }
+	header .btn-header-login {
+	  margin-bottom: 15px;
+	}
 
-    .login-main {
-      margin-top: 130px;
-    }
+	.login-main {
+	  margin-top: 130px;
+	}
 
-    .multibox {
-      padding-left: 0px;
-      padding-bottom: 10px;
-    }
+	.multibox {
+	  padding-left: 0px;
+	  padding-bottom: 10px;
+	}
 
-    .login-main span {
-      font-size: 12px;
-    }
+	.login-main span {
+	  font-size: 12px;
+	}
 
 
 
-    footer hr {
-      margin-top: 0px;
-      padding-top: 0px;
-    }
+	footer hr {
+	  margin-top: 0px;
+	  padding-top: 0px;
+	}
 
-    .footer-options ul {
-      clear: both;
-      padding: 0px;
-      margin: 0px;
-    }
+	.footer-options ul {
+	  clear: both;
+	  padding: 0px;
+	  margin: 0px;
+	}
 
-    .footer-options ul li {
-      float: left;
-      list-style: none;
-      padding: 5px;
-      font-size: 12px;
-    }
+	.footer-options ul li {
+	  float: left;
+	  list-style: none;
+	  padding: 5px;
+	  font-size: 12px;
+	}
 
-    .footer-options ul li a {
-      text-decoration: none;
-      color: #000;
-    }
+	.footer-options ul li a {
+	  text-decoration: none;
+	  color: #000;
+	}
 
-    .copyrights {
-      margin-top: 25px;
-    }
+	.copyrights {
+	  margin-top: 25px;
+	}
 
 
 
@@ -397,37 +397,37 @@
   </style>
 
   <script>
-    $(document).ready(function () {
-      $("#signup").click(function () {
-        var name = $("#name").val();
-        var username = $("#username").val();
-        var email = $("#email").val();
-        var password = $("#password").val();
-        if (name == '' || username == '' || email == '' || password == '') {
-          alert("Please fill all fields...!!!!!!");
-        } else if ((password.length) < 8) {
-          alert("Password should atleast 8 character in length...!!!!!!");
-        } else if (!(password).match(cmpassword)) {
-          alert("Your passwords don't match. Try again?");
-        } else {
-          $.post("signup", {
-            name: name,
-            username: username,
-            email: email,
-            password: password
-          }, function (data) {
-            if (data == 'You have Successfully Registered.....') {
-              console.log('You have Successfully Registered.....');
-              $("form")[0].reset();
-            }
+	$(document).ready(function () {
+	  $("#signup").click(function () {
+		var name = $("#name").val();
+		var username = $("#username").val();
+		var email = $("#email").val();
+		var password = $("#password").val();
+		if (name == '' || username == '' || email == '' || password == '') {
+		  alert("Please fill all fields...!!!!!!");
+		} else if ((password.length) < 8) {
+		  alert("Password should atleast 8 character in length...!!!!!!");
+		} else if (!(password).match(cmpassword)) {
+		  alert("Your passwords don't match. Try again?");
+		} else {
+		  $.post("signup", {
+			name: name,
+			username: username,
+			email: email,
+			password: password
+		  }, function (data) {
+			if (data == 'You have Successfully Registered.....') {
+			  console.log('You have Successfully Registered.....');
+			  $("form")[0].reset();
+			}
 
-          });
-        }
-      });
-    });
+		  });
+		}
+	  });
+	});
   </script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>login.js</script>
 
 </body>
