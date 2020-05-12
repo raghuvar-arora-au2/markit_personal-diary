@@ -11,9 +11,14 @@ var session = require("express-session");
 const bodyParser = require("body-parser");
 var notes = require("./notes.js") 
 var hbs = require("express-handlebars");
-var mongoClient = require("mongodb").MongoClient
+var mongoClient = require("mongodb").MongoClient;
+var passport =require( "passport")
+
 
 var app = express();
+
+var  json =require("body-parser");
+app.use(json());
 
 // eslint-disable-next-line no-unused-vars
 const multipart = require( "connect-multiparty" );
@@ -28,6 +33,7 @@ const { multerUploads, dataUri } = require( "./middlewares/multer" );
 const { uploader, cloudinaryConfig } = require( "./config/cloudinaryConfig" );
 
 app.use( "*", cloudinaryConfig );
+
 
 mongoClient.connect(url, {useNewUrlParser : true}, function(err, client){
 	if(err) throw err    
@@ -167,7 +173,9 @@ app.post( "/upload", multerUploads, ( req, res ) => {
 	}
 });
 
-
+app.get("/badlogin",(req,res)=>{
+	res.sendFile(__dirname+"/public/incorrectcredentials.html");
+})
 
 
 app.listen(process.env.PORT || 3000, ()=>{
