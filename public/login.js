@@ -1,3 +1,5 @@
+import { readFile } from "fs";
+
 $("#loginBtn").click(function(){
 	$.ajax({
 		type : 'GET',

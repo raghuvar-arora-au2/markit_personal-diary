@@ -13,7 +13,7 @@ var notes = require("./notes.js")
 var hbs = require("express-handlebars");
 var mongoClient = require("mongodb").MongoClient;
 var passport =require( "passport")
-
+var fetch=require("node-fetch")
 
 var app = express();
 
@@ -117,7 +117,7 @@ app.post("/login", function (req, res) {
 		else{
 			console.log(" no exist");
 			// throw err;
-			res.redirect("/index.html");
+			res.redirect("/badlogin");
 		}
 	});
 })
@@ -177,6 +177,19 @@ app.get("/badlogin",(req,res)=>{
 	res.sendFile(__dirname+"/public/incorrectcredentials.html");
 })
 
+app.post("/facebooklogin",async (req, res)=>{
+	const{accessToken, userID}=req.body
+	const response= await fetch(`https://graph.facebook.com/v7.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`)
+	const json= await response.json()
+
+	if(json.userID==userID){
+		//valid user
+	}
+	else{
+		//DO NOT LOGIN
+	}
+
+})
 
 app.listen(process.env.PORT || 3000, ()=>{
 	console.log("yellow");

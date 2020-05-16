@@ -123,7 +123,7 @@
 						<div class="row">
 							<div class="col-sm-5">
 								<div class="form-group">
-									<input type="text" class="form-control" name="username" placeholder="Email Address">
+									<input type="text" class="form-control" name="username" placeholder="Username">
 									<div class="login-bottom-text checkbox hidden-sm">
 										<label>
 											<input type="checkbox" id="">
@@ -227,8 +227,9 @@
 
 			</form>
 			
-			<div class="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default"
-				data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
+			<div class="fb-login-button" id="fb-login-button"  onclick="loginWithFacebook()" data-size="medium" data-button-type="login_with" data-layout="default"
+				data-auto-logout-link="false" data-use-continue-as="false" data-width="">
+			</div>
 		</div>
 		</div>
 		</div>
@@ -442,7 +443,7 @@
 	</script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script>login.js</script>
+	
 
 	<script>
 		window.fbAsyncInit = function () {
@@ -454,7 +455,7 @@
 			});
 
 			FB.AppEvents.logPageView();
-
+	
 		};
 
 		(function (d, s, id) {
@@ -466,11 +467,39 @@
 		}(document, 'script', 'facebook-jssdk'));
 
 
-		FB.getLoginStatus(function (response) {
-			statusChangeCallback(response);
-		});
+		// FB.getLoginStatus(function (response) {
+		// 	statusChangeCallback(response);
+		// });
 	</script>
+	<script src="login.js"></script>
 
+	<script>
+		
+document.getElementById("fb-login-button").addEventListener("click",loginWithFacebook)
+function loginWithFacebook(){
+	console.log("here");
+	FB.login(response=>{
+		console.log(response)
+		const{authResponse:{accessToken,userID}}=response
+
+		fetch("/facebooklogin", {
+			method: "POST",
+			headers:{
+				"Content-Type":"application/json"
+			},
+		
+			body: JSON.stringify({accessToken,userID})
+		}).then(res=>{
+			console.log(res)
+		})
+
+		FB.api("/me", function(res){
+			console.log(JSON.stringify(res))
+		})
+	},{scope:"public_profile,email"})
+	return false
+}
+	</script>
 
 </body>
 

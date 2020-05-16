@@ -35,6 +35,7 @@
     "multipart": "^0.1.5",
     "negotiator": "^0.6.2",
     "neo-async": "^2.6.1",
+    "node-fetch": "^2.3.0",
     "npm-run-path": "^2.0.2",
     "number-is-nan": "^1.0.1",
     "object-assign": "^4.1.1",
