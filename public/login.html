@@ -117,104 +117,46 @@
 			<form action='/login' method='POST'>
 				<div class="row">
 					<div class="col-sm-6">
-						<div class="logo"><b>markIT</b></div>
+						<div class="logo"><b>MarkIT</b></div>
 					</div>
-					<div class="col-sm-6 hidden-xs">
-						<div class="row">
-							<div class="col-sm-5">
-								<div class="form-group">
-									<input type="text" class="form-control" name="username" placeholder="Username">
-									<div class="login-bottom-text checkbox hidden-sm">
-										<label>
-											<input type="checkbox" id="">
-											Keep me sign in
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-5">
-								<div class="form-group">
-									<input type="password" class="form-control" name="password" placeholder="Password">
-									<div class="login-bottom-text hidden-sm"> Forgot your password? </div>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<div class="form-group">
-									<!-- <input type="button" value="login" class="btn btn-default btn-header-login"> -->
-									<button class="btn btn-default btn-header-login  my-2 my-sm-0"
-										style="background-color:purple;color:white" type="submit">Login</button>
-								</div>
-							</div>
-						</div>
-					</div>
+
 				</div>
-			</form>
+		</div>
+		</form>
 		</div>
 	</header>
 	<article class="container">
 		<div class="row">
-			<div class="col-sm-8">
-				<div class="login-main">
-					<h4><i class="fa fa-dashboard"></i> Gorgeous color and design</h4>
-					<span>Some sample description text about the template goes here</span>
-
-					<h4> <i class="fa fa-money"></i> 100% fully responsive </h4>
-					<span>Another description text about the template goes here</span>
-
-					<h4><i class="fa fa-mobile-phone"></i> Competible with all browers and mobile devices</h4>
-					<span>Yet another sample description text can be placed in one line</span>
-
-					<h4> <i class="fa fa-trophy"></i> Easy to use and custmize with mobile friendly and responsive</h4>
-					<span>Your last description text about your startup or business</span>
-				</div>
+			<div class="col-sm-4">
 			</div>
-			<form class=".signup-form" action="/signup" method="POST">
+			<form class=".signup-form" action="/login" method="POST">
 				<div class="col-sm-4">
 					<div class="">
-
-						<h3><i class="fa fa-shield"></i> Register now</h3>
+						<br>
+						<br>
+						<br>
+						<div class="alert alert-warning">
+							Please Login to continue!
+						</div>
 						<hr>
+						
+						<h3><i class="fa fa-shield"></i> Login to MarkIT</h3>
 						<div class="form-group">
-							<label class="control-label" for="">Username</label>
-							<input type="text" name="username" class="form-control" placeholder="Username"
+							
+							<input type="text" name="username" class="form-control" placeholder="username"
 								required="required">
 						</div>
 
 						<div class="form-group">
-							<label class="control-label" for="">Email</label>
-							<input type="text" name="email" class="form-control" placeholder="Email"
-								required="required">
-						</div>
-
-						<div class="form-group">
-							<label class="control-label" for="">Password</label>
+						
 							<input type="password" class="form-control" name="password" placeholder="Password"
 								required="required">
 						</div>
 
 
 
-						<!-- <div class="">
-							<label>Birthday</label>
-							<div class="form-group">
-								<div class="col-sm-4 multibox">
-									<select class="form-control">
-										<option>Day</option>
-									</select>
-								</div>
-								<div class="col-sm-4 multibox">
-									<select class="form-control">
-										<option>Month</option>
-									</select>
-								</div>
-								<div class="col-sm-4 multibox">
-									<select class="form-control">
-										<option>Year</option>
-									</select>
-								</div>
-
-							</div>
-						</div> -->
+						
+						
 
 						<small>
 
@@ -222,19 +164,12 @@
 						<div style="height:10px;"></div>
 						<div class="form-group">
 							<label class="control-label" for=""></label>
-							<input type="submit" style="background-color:rgb(110, 52, 110);color:white" class="btn ">
+							<input type="submit" value="login"  style="background-color:rgb(110, 52, 110);color:white"
+								class="btn btn-block">
 						</div>
 
 			</form>
 
-			<!-- <div class="fb-login-button" id="fb-login-button" onclick="loginWithFacebook()" data-size="medium"
-				data-button-type="login_with" data-layout="default" data-auto-logout-link="false"
-				data-use-continue-as="false" data-width="">
-			</div> -->
-			<hr>
-			<button class="loginBtn loginBtn--facebook" onclick="loginWithFacebook()">
-					Login with Facebook
-				  </button>
 		</div>
 		</div>
 		</div>
@@ -272,12 +207,10 @@
 		.logo {
 			font: bolder;
 			color: white;
-			/* margin: 0;
-			font-size: 30px; */
-			padding: 4px 0;
-			padding-bottom: 15px;
 			margin: -10;
 			font-size: 50px;
+			padding: 4px 0;
+			padding-bottom: 15px;
 
 		}
 
@@ -450,7 +383,7 @@
 	</script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
+	<script>login.js</script>
 
 	<script>
 		window.fbAsyncInit = function () {
@@ -474,46 +407,11 @@
 		}(document, 'script', 'facebook-jssdk'));
 
 
-		// FB.getLoginStatus(function (response) {
-		// 	statusChangeCallback(response);
-		// });
+		FB.getLoginStatus(function (response) {
+			statusChangeCallback(response);
+		});
 	</script>
-	<script src="login.js"></script>
 
-	<script>
-
-		document.getElementById("fb-login-button").addEventListener("click", loginWithFacebook)
-		function loginWithFacebook() {
-			console.log("here");
-			FB.login(response => {
-				console.log(response)
-				const { authResponse: { accessToken, userID } } = response
-				var name =FB.api("/me", function (res) {
-					name=res.name
-					return name
-				})
-				console.log(name)
-				
-				fetch("/facebooklogin", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-
-					body: JSON.stringify({ accessToken, userID,name:name })
-				}).then(res => {
-					if(res.redirected){
-						window.location =res.url
-					}
-				})
-
-				FB.api("/me", function (res) {
-					console.log(JSON.stringify(res))
-				})
-			}, { scope: "public_profile,email" })
-			return false
-		}
-	</script>
 
 </body>
 

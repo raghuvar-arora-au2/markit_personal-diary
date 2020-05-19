@@ -53,7 +53,7 @@ router.get("/", function(req, res, next) {
 router.get("/", function(req, res){
 	// if(!req.session.user){
 	// res.redirect was throwing error - headers already sent
-	res.redirect("/index.html")
+	res.redirect("/")
 	// }
 })
 

@@ -84,7 +84,11 @@ app.post("/signup" ,function(req,res){
 		}
 		console.log("record is successfully registered");
 	});
-	res.redirect("/index.html");
+	res.redirect("/login");
+})
+
+app.get("/login",(req, res)=>{
+	res.sendFile(__dirname+"/public/login.html");
 })
 
 app.post("/login", function (req, res) {
@@ -103,7 +107,7 @@ app.post("/login", function (req, res) {
 		console.log("pass:"+users)
 		if(err){
 			// console.log(" no exist");
-			res.redirect("/index.html");
+			res.redirect("/");
 			console.log("ERROR");
 			throw err;
 			
@@ -124,7 +128,7 @@ app.post("/login", function (req, res) {
 
 app.get("/logout", function (req, res) {
 	req.session.destroy();
-	res.redirect("/index.html");
+	res.redirect("/");
 });
 
 app.engine("hbs", hbs({extname:"hbs"}))
@@ -228,6 +232,8 @@ app.post("/facebooklogin",async (req, res)=>{
 	}
 
 })
+
+app.get("/")
 
 app.listen(process.env.PORT || 3000, ()=>{
 	console.log("Server started.");
