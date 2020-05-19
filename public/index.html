@@ -226,9 +226,10 @@
 						</div>
 
 			</form>
-			
-			<div class="fb-login-button" id="fb-login-button"  onclick="loginWithFacebook()" data-size="medium" data-button-type="login_with" data-layout="default"
-				data-auto-logout-link="false" data-use-continue-as="false" data-width="">
+
+			<div class="fb-login-button" id="fb-login-button" onclick="loginWithFacebook()" data-size="medium"
+				data-button-type="login_with" data-layout="default" data-auto-logout-link="false"
+				data-use-continue-as="false" data-width="">
 			</div>
 		</div>
 		</div>
@@ -443,7 +444,7 @@
 	</script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	
+
 
 	<script>
 		window.fbAsyncInit = function () {
@@ -455,7 +456,7 @@
 			});
 
 			FB.AppEvents.logPageView();
-	
+
 		};
 
 		(function (d, s, id) {
@@ -474,31 +475,38 @@
 	<script src="login.js"></script>
 
 	<script>
-		
-document.getElementById("fb-login-button").addEventListener("click",loginWithFacebook)
-function loginWithFacebook(){
-	console.log("here");
-	FB.login(response=>{
-		console.log(response)
-		const{authResponse:{accessToken,userID}}=response
 
-		fetch("/facebooklogin", {
-			method: "POST",
-			headers:{
-				"Content-Type":"application/json"
-			},
-		
-			body: JSON.stringify({accessToken,userID})
-		}).then(res=>{
-			console.log(res)
-		})
+		document.getElementById("fb-login-button").addEventListener("click", loginWithFacebook)
+		function loginWithFacebook() {
+			console.log("here");
+			FB.login(response => {
+				console.log(response)
+				const { authResponse: { accessToken, userID } } = response
+				var name =FB.api("/me", function (res) {
+					name=res.name
+					return name
+				})
+				console.log(name)
+				
+				fetch("/facebooklogin", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
 
-		FB.api("/me", function(res){
-			console.log(JSON.stringify(res))
-		})
-	},{scope:"public_profile,email"})
-	return false
-}
+					body: JSON.stringify({ accessToken, userID,name:name })
+				}).then(res => {
+					if(res.redirected){
+						window.URL=res.url
+					}
+				})
+
+				FB.api("/me", function (res) {
+					console.log(JSON.stringify(res))
+				})
+			}, { scope: "public_profile,email" })
+			return false
+		}
 	</script>
 
 </body>

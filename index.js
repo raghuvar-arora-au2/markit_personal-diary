@@ -149,9 +149,9 @@ app.delete("/delete", multerUploads,(req,res)=>{
 
 app.post( "/upload", multerUploads, ( req, res ) => {
 	if ( 1 ) {
-		console.log(req.file);
+		// console.log(req.file);
 		if ( req.file ) {
-			console.log("dfsdfsd");
+			// console.log("dfsdfsd");
 			let path=req.body.path
 			const file = dataUri( req ).content;
 			return uploader.upload( file, () => { }, { resource_type: "auto", folder: path } ).then( ( result ) => {
@@ -178,20 +178,58 @@ app.get("/badlogin",(req,res)=>{
 })
 
 app.post("/facebooklogin",async (req, res)=>{
-	const{accessToken, userID}=req.body
+	const{accessToken, userID, name}=req.body
 	const response= await fetch(`https://graph.facebook.com/v7.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`)
+	// console.log(`https://graph.facebook.com/v7.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`)
 	const json= await response.json()
-
+	// console.log(req.body)
+	// console.log(json.userID+" "+userID)
+	json.userID=json.id;
 	if(json.userID==userID){
+		console.log("valid user");
 		//valid user
+		let user=req.app.locals.db.collection("users").findOne(
+			{
+				FacebookID:userID
+			}
+		)
+
+		if(user){
+			// res.json({status:"ok"})
+			req.session.user = true;
+			req.session.name = json.name;
+			res.redirect("/notes");
+		}
+		else{
+			var data = {
+				"name":json.name,
+				"username":json.name,
+				"email":json.name,
+				accessToken,
+				FacebookID:userID
+			}
+			req.app.locals.db.collection("users").insertOne(data, function(err, collection) {
+				if(err){
+					console.log("HERE");
+					throw err;
+				}
+				console.log("record is successfully registered");
+				req.session.user = true;
+				req.session.name = json.name;
+				res.redirect("/notes")
+			});
+		}
+
 	}
 	else{
 		//DO NOT LOGIN
+		console.log("invalid user");
+
 	}
 
 })
 
 app.listen(process.env.PORT || 3000, ()=>{
-	console.log("yellow");
+	console.log("Server started.");
 });
 //app.listen(3000);
