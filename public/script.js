@@ -529,3 +529,17 @@ function completeHandler(fileprogress, event) {
 document.getElementById("video-input").addEventListener("change", uploadVideo);
 document.getElementById("audio-input").addEventListener("change", uploadAudio);
 document.getElementById("picture-input").addEventListener("change", uploadFile);
+
+
+$(".export-to-pdf").on('click', function () {
+    var divContents = $("#markdown").html();
+    var printWindow = window.open('', '', 'height=400,width=800');
+    printWindow.document.write('<html><head><title>Notes</title>');
+    printWindow.document.write('</head><body >');
+    printWindow.document.write(divContents);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+    // printWindow.close();
+
+});
