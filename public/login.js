@@ -1,4 +1,4 @@
-import { readFile } from "fs";
+// import { readFile } from "fs";
 
 $("#loginBtn").click(function(){
 	$.ajax({
@@ -9,6 +9,7 @@ $("#loginBtn").click(function(){
 		}
 	});
 });
+
 $("#loginForm").click(function(){
 	var username  = $("#username").val();
 	var password = $("#password").val();
@@ -22,3 +23,37 @@ $("#loginForm").click(function(){
 		}
 	});
 });
+
+function loginWithFacebook() {
+	console.log("here");
+	FB.login(response => {
+		console.log(response)
+		const { authResponse: { accessToken, userID } } = response
+		var name =FB.api("/me", function (res) {
+			name=res.name
+			return name
+		})
+		console.log(name)
+		
+		fetch("/facebooklogin", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+
+			body: JSON.stringify({ accessToken, userID,name:name })
+		}).then(res => {
+			if(res.redirected){
+				window.location =res.url
+			}
+		})
+
+		FB.api("/me", function (res) {
+			console.log(JSON.stringify(res))
+		})
+	}, { scope: "public_profile,email" })
+	return false
+}
+
+
+

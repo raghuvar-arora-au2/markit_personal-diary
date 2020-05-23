@@ -64,6 +64,7 @@ router.post("/text-to-html", function(req, res){
 	res.json(html)
 })
 
+// saves the
 router.post("/update", function(req, res){
 	var user = req.session.name 
 	var note = req.body.note
