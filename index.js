@@ -64,6 +64,10 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
+app.engine("hbs", hbs({extname:"hbs"}))
+app.set("view engine", "hbs");
+app.set("views", __dirname + "/views")
+
 
 app.post("/signup" ,function(req,res){
 	var name = req.body.name;
@@ -77,14 +81,43 @@ app.post("/signup" ,function(req,res){
 		"email":email,
 		"password": password
 	}
-	req.app.locals.db.collection("users").insertOne(data, function(err, collection) {
+
+	req.app.locals.db.collection("users").findOne({
+		username: req.body.username,
+		// password: req.body.password
+		email:email
+		
+	}, function (err, users) {
+		console.log("pass:"+users)
 		if(err){
-			console.log("HERE");
+			// console.log(" no exist");
+			res.redirect("/");
+			console.log("ERROR");
 			throw err;
+			
 		}
-		console.log("record is successfully registered");
+		else if(users!=null){
+			// req.session.user = true;
+			// req.session.name = username;
+			console.log(" exist");
+			// res.redirect("/notes");
+			res.render("altLogin",{layout: false,type:"warning",message:"The account already exists!", username:req.body.username})
+		}
+		else{
+			req.app.locals.db.collection("users").insertOne(data, function(err, collection) {
+				if(err){
+					console.log("HERE");
+					throw err;
+				}
+				console.log("record is successfully registered");
+			});
+			// res.redirect("/login");
+			res.render("altLogin",{layout: false,type:"warning",message:"Please login to continue!", username:req.body.username})
+		}
+		
 	});
-	res.redirect("/login");
+
+	
 })
 
 app.get("/login",(req, res)=>{
@@ -121,7 +154,8 @@ app.post("/login", function (req, res) {
 		else{
 			console.log(" no exist");
 			// throw err;
-			res.redirect("/badlogin");
+			// res.redirect("/badlogin");
+			res.render("altLogin",{layout: false,type:"danger",message:"incorrect username or password", username:req.body.username})
 		}
 	});
 })
@@ -131,9 +165,6 @@ app.get("/logout", function (req, res) {
 	res.redirect("/");
 });
 
-app.engine("hbs", hbs({extname:"hbs"}))
-app.set("view engine", "hbs");
-app.set("views", __dirname + "/views")
 
 
 app.use("/notes", notes)
