@@ -102,7 +102,7 @@ app.post("/signup" ,function(req,res){
 			// req.session.name = username;
 			console.log(" exist");
 			// res.redirect("/notes");
-			res.render("altLogin",{layout: false,type:"warning",message:"The account already exists!", username:req.body.username})
+			res.render("altLogin",{layout: false,type:"warning",message:"The account already exists! <a href='/'>Reset password?</a>", username:req.body.username})
 		}
 		else{
 			req.app.locals.db.collection("users").insertOne(data, function(err, collection) {
