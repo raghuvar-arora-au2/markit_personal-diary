@@ -3,8 +3,9 @@
 /* eslint-disable semi */
 if(process.env.MY_DB)
 	var url = process.env.MY_DB
-else
+else{
 	var url = "mongodb://raghuvar:qwert123@ds243418.mlab.com:43418/sample";
+}
 
 var express = require("express");
 var session = require("express-session");
